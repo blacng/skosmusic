@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# ttl files
+skos.ttl
+venues_type.ttl
+
+# Syncthing conflict files
+*.sync-conflict-*

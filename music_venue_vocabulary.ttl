@@ -1,0 +1,373 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix get: <http://getexcited.com/music-venues#> .
+
+# ==============================================================================
+# Concept Scheme
+# ==============================================================================
+
+get:MusicVenueVocabulary a skos:ConceptScheme ;
+    skos:prefLabel "Music Venue Vocabulary"@en ;
+    skos:definition "A vocabulary for describing music venues."@en ;
+    skos:hasTopConcept get:VenueType ,
+                       get:VenueLocation .
+
+# ==============================================================================
+# Top Concept: Venue Type
+# ==============================================================================
+
+get:VenueType a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:topConceptOf get:MusicVenueVocabulary ;
+    skos:prefLabel "Venue Type"@en ;
+    skos:definition "The type or category of a music venue."@en ;
+    skos:narrower get:Venue ;
+    skos:related get:VenueLocation .
+
+# ──────────────────────────────────────────────
+# Venue
+# ──────────────────────────────────────────────
+
+get:Venue a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Venue"@en ;
+    skos:definition "A physical location or facility where music performances and events take place."@en ;
+    skos:broader get:VenueType ;
+    skos:narrower get:IndoorVenue ,
+                  get:OutdoorVenue ,
+                  get:MultiUnitVenue .
+
+# ──────────────────────────────────────────────
+# Indoor Venue
+# ──────────────────────────────────────────────
+
+get:IndoorVenue a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Indoor Venue"@en ;
+    skos:definition "An enclosed venue for music performances and events."@en ;
+    skos:broader get:Venue ;
+    skos:narrower get:ConcertHall ,
+                  get:Arena ,
+                  get:Nightclub ,
+                  get:LiveMusicVenue ,
+                  get:Cabaret .
+
+get:ConcertHall a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Concert Hall"@en ;
+    skos:altLabel "music hall"@en, "recital hall"@en ;
+    skos:definition "Hall designed for concerts and musical performances"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q10547643> ;
+    skos:broader get:IndoorVenue .
+
+get:Arena a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Arena"@en ;
+    skos:altLabel "sports arena"@en, "indoor arena"@en, "event arena"@en ;
+    skos:definition "Enclosed venue for sports, concerts, and other events"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q641226> ;
+    skos:broader get:IndoorVenue .
+
+get:Nightclub a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Nightclub"@en ;
+    skos:altLabel "club"@en, "dance club"@en, "discotheque"@en, "night spot"@en, "techno club"@en ;
+    skos:definition "Entertainment venue operating late at night with music and dancing"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q622425> ;
+    skos:broader get:IndoorVenue .
+
+get:LiveMusicVenue a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Live Music Club"@en ;
+    skos:altLabel "music club"@en, "music bar"@en, "gig venue"@en ;
+    skos:definition "Small to medium-sized venue for live music performances"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q63493660> ;
+    skos:broader get:IndoorVenue .
+
+get:Cabaret a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Cabaret"@en ;
+    skos:altLabel "cabaret club"@en, "cabaret theater"@en, "supper club"@en ;
+    skos:definition "Entertainment venue featuring music, song, dance, and drama"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q131183> ;
+    skos:broader get:IndoorVenue .
+
+# ──────────────────────────────────────────────
+# Outdoor Venue
+# ──────────────────────────────────────────────
+
+get:OutdoorVenue a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Outdoor Venue"@en ;
+    skos:altLabel "outdoor music venue"@en, "open-air concert hall"@en, "outdoor amphitheater"@en ;
+    skos:definition "Open-air venue designed for musical concerts"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q50418254> ;
+    skos:broader get:Venue ;
+    skos:narrower get:Amphitheater ,
+                  get:Stadium ,
+                  get:Fairground .
+
+get:Amphitheater a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Amphitheater"@en ;
+    skos:altLabel "amphitheatre"@en ;
+    skos:definition "Open-air venue used for entertainment and performances"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q54831> ;
+    skos:broader get:OutdoorVenue .
+
+get:Stadium a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Stadium"@en ;
+    skos:altLabel "sports stadium"@en, "athletic stadium"@en ;
+    skos:definition "Large open-air venue for sports and large-scale performance events with tiered seating"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q483110> ;
+    skos:broader get:OutdoorVenue .
+
+get:Fairground a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Fairground"@en ;
+    skos:altLabel "fair ground"@en ;
+    skos:definition "Permanent exhibition for hosting fairs"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q2948561> ;
+    skos:broader get:OutdoorVenue .
+
+# ──────────────────────────────────────────────
+# Multi-Unit Venue
+# ──────────────────────────────────────────────
+
+get:MultiUnitVenue a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Multi-Unit Venue"@en ;
+    skos:definition "A complex containing multiple performance spaces or halls within a single facility."@en ;
+    skos:broader get:Venue ;
+    skos:narrower get:PerformingArtsBuilding ,
+                  get:CommunityCenter .
+
+get:PerformingArtsBuilding a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Performing arts building"@en ;
+    skos:altLabel "performing arts centre"@en, "arts center"@en, "cultural center"@en, "arts complex"@en ;
+    skos:definition "Complex with multiple venues for various performing arts"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q3469910> ;
+    skos:broader get:MultiUnitVenue .
+
+get:CommunityCenter a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Community center"@en ;
+    skos:altLabel "community centre"@en, "civic center"@en, "community hall"@en ;
+    skos:definition "Public facility for community activities and gatherings"@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q77115> ;
+    skos:broader get:MultiUnitVenue .
+
+# ==============================================================================
+# Top Concept: Venue Location
+# ==============================================================================
+
+get:VenueLocation a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:topConceptOf get:MusicVenueVocabulary ;
+    skos:prefLabel "Venue Location"@en ;
+    skos:definition "The location of a music venue."@en ;
+    skos:narrower get:Continent ;
+    skos:related get:VenueType .
+
+# ──────────────────────────────────────────────
+# Continent
+# ──────────────────────────────────────────────
+
+get:Continent a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Continent"@en ;
+    skos:definition "A continent where a music venue is located."@en ;
+    skos:broader get:VenueLocation ;
+    skos:narrower get:NorthAmerica ,
+                  get:SouthAmerica ,
+                  get:Europe ,
+                  get:Asia ,
+                  get:Africa ,
+                  get:Oceania .
+
+# ──────────────────────────────────────────────
+# North America
+# ──────────────────────────────────────────────
+
+get:NorthAmerica a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "North America"@en ;
+    skos:definition "The North American continent."@en ;
+    skos:broader get:Continent ;
+    skos:narrower get:UnitedStates ,
+                  get:Canada ,
+                  get:Mexico .
+
+get:UnitedStates a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "United States"@en ;
+    skos:definition "A country in North America known for a diverse live music scene."@en ;
+    skos:broader get:NorthAmerica .
+
+get:Canada a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Canada"@en ;
+    skos:definition "A country in North America with a vibrant music festival culture."@en ;
+    skos:broader get:NorthAmerica .
+
+get:Mexico a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Mexico"@en ;
+    skos:definition "A country in North America with a rich tradition of live music and festival venues."@en ;
+    skos:broader get:NorthAmerica .
+
+# ──────────────────────────────────────────────
+# South America
+# ──────────────────────────────────────────────
+
+get:SouthAmerica a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "South America"@en ;
+    skos:definition "The South American continent."@en ;
+    skos:broader get:Continent ;
+    skos:narrower get:Brazil ,
+                  get:Argentina ,
+                  get:Colombia .
+
+get:Brazil a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Brazil"@en ;
+    skos:definition "A country in South America renowned for samba, bossa nova, and large-scale music festivals."@en ;
+    skos:broader get:SouthAmerica .
+
+get:Argentina a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Argentina"@en ;
+    skos:definition "A country in South America with a strong tango and rock music venue scene."@en ;
+    skos:broader get:SouthAmerica .
+
+get:Colombia a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Colombia"@en ;
+    skos:definition "A country in South America known for cumbia, salsa, and growing live music venues."@en ;
+    skos:broader get:SouthAmerica .
+
+# ──────────────────────────────────────────────
+# Europe
+# ──────────────────────────────────────────────
+
+get:Europe a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Europe"@en ;
+    skos:definition "The European continent."@en ;
+    skos:broader get:Continent ;
+    skos:narrower get:UnitedKingdom ,
+                  get:Germany ,
+                  get:France ,
+                  get:Spain .
+
+get:UnitedKingdom a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "United Kingdom"@en ;
+    skos:definition "A country in Europe with a historic and influential live music and concert venue culture."@en ;
+    skos:broader get:Europe .
+
+get:Germany a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Germany"@en ;
+    skos:definition "A country in Europe known for its electronic music clubs and classical concert halls."@en ;
+    skos:broader get:Europe .
+
+get:France a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "France"@en ;
+    skos:definition "A country in Europe with a rich tradition of cabarets, jazz clubs, and concert venues."@en ;
+    skos:broader get:Europe .
+
+get:Spain a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Spain"@en ;
+    skos:definition "A country in Europe known for flamenco venues and open-air music festivals."@en ;
+    skos:broader get:Europe .
+
+# ──────────────────────────────────────────────
+# Asia
+# ──────────────────────────────────────────────
+
+get:Asia a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Asia"@en ;
+    skos:definition "The Asian continent."@en ;
+    skos:broader get:Continent ;
+    skos:narrower get:Japan ,
+                  get:SouthKorea ,
+                  get:India .
+
+get:Japan a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Japan"@en ;
+    skos:definition "A country in Asia with a thriving live house and concert hall culture."@en ;
+    skos:broader get:Asia .
+
+get:SouthKorea a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "South Korea"@en ;
+    skos:definition "A country in Asia known for K-pop concert arenas and live music cafes."@en ;
+    skos:broader get:Asia .
+
+get:India a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "India"@en ;
+    skos:definition "A country in Asia with diverse music venues spanning classical, Bollywood, and contemporary scenes."@en ;
+    skos:broader get:Asia .
+
+# ──────────────────────────────────────────────
+# Africa
+# ──────────────────────────────────────────────
+
+get:Africa a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Africa"@en ;
+    skos:definition "The African continent."@en ;
+    skos:broader get:Continent ;
+    skos:narrower get:SouthAfrica ,
+                  get:Nigeria ,
+                  get:Kenya .
+
+get:SouthAfrica a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "South Africa"@en ;
+    skos:definition "A country in Africa with a vibrant live music scene spanning jazz, kwaito, and amapiano venues."@en ;
+    skos:broader get:Africa .
+
+get:Nigeria a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Nigeria"@en ;
+    skos:definition "A country in Africa known for Afrobeats venues and a growing live music industry."@en ;
+    skos:broader get:Africa .
+
+get:Kenya a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Kenya"@en ;
+    skos:definition "A country in Africa with an emerging live music and festival venue scene."@en ;
+    skos:broader get:Africa .
+
+# ──────────────────────────────────────────────
+# Oceania
+# ──────────────────────────────────────────────
+
+get:Oceania a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Oceania"@en ;
+    skos:definition "The Oceanian continent."@en ;
+    skos:broader get:Continent ;
+    skos:narrower get:Australia ,
+                  get:NewZealand .
+
+get:Australia a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "Australia"@en ;
+    skos:definition "A country in Oceania known for outdoor music festivals and live pub music venues."@en ;
+    skos:broader get:Oceania .
+
+get:NewZealand a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:prefLabel "New Zealand"@en ;
+    skos:definition "A country in Oceania with intimate live music venues and growing festival culture."@en ;
+    skos:broader get:Oceania .
