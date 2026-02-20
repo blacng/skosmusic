@@ -1,21 +1,133 @@
-@prefix owl:   <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix geo:   <http://getexcited.com/music-venues/geo#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix mv:   <http://getexcited.com/music-venues#> .
+@prefix geo:  <http://getexcited.com/music-venues/geo#> .
 
 # ==============================================================================
 # Ontology Declaration
 # ==============================================================================
 
-<http://getexcited.com/music-venues/geo>
+<http://getexcited.com/music-venues>
     a owl:Ontology ;
-    rdfs:label "Music Venue Location Ontology"@en ;
-    rdfs:comment "Formal ontology for describing the geographic locations of music venues."@en ;
+    rdfs:label "Music Venue Ontology"@en ;
+    rdfs:comment "A unified ontology for describing music venues, their types, facilities, amenities, and geographic locations."@en ;
     owl:versionInfo "1.0" .
 
 # ==============================================================================
-# Classes
+# Classes: Facility & Amenity Hierarchy (Alana)
+# ==============================================================================
+
+mv:Facility a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "Facility"@en ;
+    rdfs:comment "Place, equipment, or service to support a specific function."@en .
+
+mv:Amenity a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:subClassOf mv:Facility ;
+    rdfs:label "Amenity"@en ;
+    rdfs:comment "Amenities that might be found at a music venue. Amenities are the features and services offered at a location where events are held."@en .
+
+mv:Room a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:subClassOf mv:Amenity ;
+    rdfs:label "Room"@en .
+
+mv:EatingOrDrinkingEstablishment a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:subClassOf mv:Amenity ;
+    rdfs:label "Eating or Drinking Establishment"@en .
+
+mv:ParkingArea a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:subClassOf mv:Amenity ;
+    rdfs:label "Parking Area"@en .
+
+# ==============================================================================
+# Classes: Venue Type Hierarchy (Sergio)
+# ==============================================================================
+
+mv:Venue a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:subClassOf mv:Facility ;
+    rdfs:label "Venue"@en ;
+    rdfs:comment "A physical location where events, performances, or gatherings take place."@en .
+
+# ── Indoor Venues ──────────────────────────────────
+
+mv:IndoorVenue a owl:Class ;
+    rdfs:subClassOf mv:Venue ;
+    rdfs:label "Indoor Venue"@en ;
+    rdfs:comment "Venue primarily designed for events held indoors."@en .
+
+mv:ConcertHall a owl:Class ;
+    rdfs:subClassOf mv:IndoorVenue ;
+    rdfs:label "Concert Hall"@en ;
+    rdfs:comment "Hall designed for concerts and musical performances."@en .
+
+mv:Arena a owl:Class ;
+    rdfs:subClassOf mv:IndoorVenue ;
+    rdfs:label "Arena"@en ;
+    rdfs:comment "Large indoor venue with a central performance area surrounded by seating."@en .
+
+mv:Nightclub a owl:Class ;
+    rdfs:subClassOf mv:IndoorVenue ;
+    rdfs:label "Nightclub"@en ;
+    rdfs:comment "Venue primarily focused on music and dancing, often with a bar."@en .
+
+mv:MusicClub a owl:Class ;
+    rdfs:subClassOf mv:IndoorVenue ;
+    rdfs:label "Music Club"@en ;
+    rdfs:comment "Smaller indoor venue focused on live music performances."@en .
+
+mv:Cabaret a owl:Class ;
+    rdfs:subClassOf mv:IndoorVenue ;
+    rdfs:label "Cabaret"@en ;
+    rdfs:comment "Venue offering a mix of music, comedy, and other performances in an intimate setting."@en .
+
+# ── Outdoor Venues ─────────────────────────────────
+
+mv:OutdoorConcertVenue a owl:Class ;
+    rdfs:subClassOf mv:Venue ;
+    rdfs:label "Outdoor Concert Venue"@en ;
+    rdfs:comment "Open-air venue designed for musical concerts."@en .
+
+mv:Amphitheater a owl:Class ;
+    rdfs:subClassOf mv:OutdoorConcertVenue ;
+    rdfs:label "Amphitheater"@en ;
+    rdfs:comment "Open-air venue with a stage and tiered seating, often used for concerts and performances."@en .
+
+mv:Stadium a owl:Class ;
+    rdfs:subClassOf mv:OutdoorConcertVenue ;
+    rdfs:label "Stadium"@en ;
+    rdfs:comment "Large outdoor venue with a field or stage and extensive seating, often used for concerts and sporting events."@en .
+
+mv:Fairground a owl:Class ;
+    rdfs:subClassOf mv:OutdoorConcertVenue ;
+    rdfs:label "Fairground"@en ;
+    rdfs:comment "Open outdoor area used for fairs, festivals, and large events, which may include a stage for concerts."@en .
+
+# ── Multi-Unit Venues ──────────────────────────────
+
+mv:MultiUnitVenue a owl:Class ;
+    rdfs:subClassOf mv:Venue ;
+    rdfs:label "Multi-Unit Venue"@en ;
+    rdfs:comment "Venue complex that contains multiple distinct event/performance spaces."@en .
+
+mv:PerformingArtsBuilding a owl:Class ;
+    rdfs:subClassOf mv:MultiUnitVenue ;
+    rdfs:label "Performing Arts Building"@en ;
+    rdfs:comment "Venue complex that includes multiple performance spaces, such as theaters, concert halls, and rehearsal rooms."@en .
+
+mv:CommunityCenter a owl:Class ;
+    rdfs:subClassOf mv:MultiUnitVenue ;
+    rdfs:label "Community Center"@en ;
+    rdfs:comment "Multi-purpose venue that may include spaces for performances, events, and community gatherings."@en .
+
+# ==============================================================================
+# Classes: Location Hierarchy
 # ==============================================================================
 
 geo:Location a owl:Class ;
@@ -41,29 +153,57 @@ geo:City a owl:Class ;
 # Object Properties
 # ==============================================================================
 
+mv:isLocatedIn a owl:ObjectProperty ;
+    rdfs:label "is located in"@en ;
+    rdfs:comment "Relates a facility to its geographic location."@en ;
+    rdfs:domain mv:Facility ;
+    rdfs:range geo:Location .
+
+mv:offersAmenity a owl:ObjectProperty ;
+    rdfs:label "offers amenity"@en ;
+    rdfs:comment "Relates a venue to an amenity it offers."@en ;
+    rdfs:domain mv:Venue ;
+    rdfs:range mv:Amenity .
+
 geo:locatedInContinent a owl:ObjectProperty ;
-    rdfs:domain geo:Country ;
-    rdfs:range geo:Continent ;
     rdfs:label "located in continent"@en ;
-    rdfs:comment "Relates a country to the continent it belongs to."@en .
+    rdfs:comment "Relates a country to the continent it belongs to."@en ;
+    rdfs:domain geo:Country ;
+    rdfs:range geo:Continent .
 
 geo:locatedInCountry a owl:ObjectProperty ;
-    rdfs:domain geo:City ;
-    rdfs:range geo:Country ;
     rdfs:label "located in country"@en ;
-    rdfs:comment "Relates a city to the country it belongs to."@en .
+    rdfs:comment "Relates a city to the country it belongs to."@en ;
+    rdfs:domain geo:City ;
+    rdfs:range geo:Country .
 
 geo:capitalCity a owl:ObjectProperty ;
-    rdfs:domain geo:Country ;
-    rdfs:range geo:City ;
     rdfs:label "capital city"@en ;
-    rdfs:comment "Relates a country to its capital city."@en .
+    rdfs:comment "Relates a country to its capital city."@en ;
+    rdfs:domain geo:Country ;
+    rdfs:range geo:City .
 
 geo:mostPopulousCity a owl:ObjectProperty ;
-    rdfs:domain geo:Country ;
-    rdfs:range geo:City ;
     rdfs:label "most populous city"@en ;
-    rdfs:comment "Relates a country to its city with the highest population."@en .
+    rdfs:comment "Relates a country to its city with the highest population."@en ;
+    rdfs:domain geo:Country ;
+    rdfs:range geo:City .
+
+# ==============================================================================
+# Datatype Properties
+# ==============================================================================
+
+mv:hasSeatingCapacity a owl:DatatypeProperty ;
+    rdfs:label "has seating capacity"@en ;
+    rdfs:comment "Indicates the number of people a venue can accommodate."@en ;
+    rdfs:domain mv:Venue ;
+    rdfs:range xsd:integer .
+
+mv:hasSeating a owl:DatatypeProperty ;
+    rdfs:label "has seating"@en ;
+    rdfs:comment "Indicates whether a venue has seating available."@en ;
+    rdfs:domain mv:Venue ;
+    rdfs:range xsd:boolean .
 
 # ==============================================================================
 # Individuals: Continents
