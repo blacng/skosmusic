@@ -1,0 +1,56 @@
+# 1. PREFIX DECLARATIONS
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex:   <http://example.org/musicvenue/> .
+@prefix get:  <http://getexcited.com/music-venues#> .
+
+get:venueOntology rdf:type owl:ontology ;
+                rdfs:label "Venue Ontology"@en ;
+                rdfs:comment "An ontology about event venues, primarily focused on those used for music performances."
+
+get:Facility rdfs:isDefinedBy get:venueOntology .
+get:Venue rdfs:isDefinedBy get:venueOntology .
+get:Amenity rdfs:isDefinedBy get:venueOntology .
+get:EatingOrDrinkingEstablishment rdfs:isDefinedBy get:venueOntology .
+get:Room rdfs:isDefinedBy get:venueOntology .
+get:ParkingArea rdfs:isDefinedBy get:venueOntology .
+
+get:Facility rdf:type owl:Class.
+
+get:Amenity rdf:type owl:Class ;
+                rdfs:subClassOf get:Facility .
+
+get:Room rdf:type owl:Class ;
+                    rdfs:subClassOf get:Amenity .
+
+get:EatingOrDrinkingEstablishment rdf:type owl:Class ;
+                    rdfs:subClassOf get:Amenity .
+
+get:ParkingArea rdf:type owl:Class ;
+                    rdfs:subClassOf get:Amenity .
+
+get:Venue rdf:type owl:Class ;
+                rdfs:subClassOf get:Facility .
+
+get:isLocatedIn rdf:type owl:ObjectProperty .
+
+get:offersAmenity rdf:type owl:ObjectProperty .
+
+get:isLocatedIn rdfs:domain get:Facility ;
+                rdfs:range get:Location .
+
+get:offersAmenity rdfs:domain get:Venue ;
+                    rdfs:range get:Amenity .
+
+get:Facility rdf:type owl:DatatypeProperty .
+
+get:Facility rdfs:label "Facility"@en ;
+    rdfs:comment "Place, equipment, or service to support a specific function."
+
+get:Venue rdfs:label "Venue"@en ;
+    rdfs:comment "Place used for some activity."
+
+get:Amenity rdfs:label "Amenity"@en ;
+    rdfs:comment "amenities that might be found at a music venue. Amenities are the features and services offered at a location where events are held."
