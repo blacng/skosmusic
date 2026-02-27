@@ -621,6 +621,54 @@ mv:MexicoCity a mv:City ;
     rdfs:comment "Capital and most populous city, home to the Palacio de Bellas Artes and Foro Sol."@en ;
     mv:locatedInCountry mv:Mexico .
 
+# -- Mexico City Venues -----------------------------------------------
+mv:AuditorioNacional a mv:Venue ;
+    mv:name "Auditorio Nacional"@en ;
+    rdfs:comment "Major indoor venue in Mexico City, widely used for concerts and international tours."@en ;
+    mv:hasVenueType mv:ConcertHall ;
+    mv:isLocatedIn mv:MexicoCity ;
+    mv:hasSeatingCapacity 10000 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:ConcessionStand ,
+                     mv:Elevator ,
+                     mv:WheelchairAccessible ,
+                     mv:AssistiveListeningDevice .
+
+mv:ForoSol a mv:Venue ;
+    mv:name "Foro Sol"@en ;
+    rdfs:comment "Large concert venue in Mexico City used for stadium-scale live events and festivals."@en ;
+    mv:hasVenueType mv:Stadium ;
+    mv:isLocatedIn mv:MexicoCity ;
+    mv:hasSeatingCapacity 65000 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:ConcessionStand ,
+                     mv:Restaurant ,
+                     mv:WheelchairAccessible .
+
+mv:PalacioDeLosDeportes a mv:Venue ;
+    mv:name "Palacio de los Deportes"@en ;
+    rdfs:comment "Iconic dome arena in Mexico City used for concerts and multi-purpose events."@en ;
+    mv:hasVenueType mv:Arena ;
+    mv:isLocatedIn mv:MexicoCity ;
+    mv:hasSeatingCapacity 20000 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:ConcessionStand ,
+                     mv:Elevator ,
+                     mv:WheelchairAccessible .
+
+mv:PepsiCenterWTC a mv:Venue ;
+    mv:name "Pepsi Center WTC"@en ;
+    rdfs:comment "Indoor concert hall in Mexico City with flexible standing and seated configurations."@en ;
+    mv:hasVenueType mv:MusicClub ;
+    mv:isLocatedIn mv:MexicoCity ;
+    mv:hasSeatingCapacity 8000 ;
+    mv:hasSeating false ;
+    mv:offersAmenity mv:Bar ,
+                     mv:ConcessionStand ,
+                     mv:WheelchairAccessible ,
+                     mv:GreenRoom .
 # -- South America -----------------------------------------------
 
 mv:Brazil a mv:Country , skos:Concept ;
