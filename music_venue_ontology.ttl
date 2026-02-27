@@ -448,6 +448,72 @@ geo:NewYorkCity a geo:City ;
     rdfs:comment "Most populous U.S. city, renowned for iconic venues like Madison Square Garden and Carnegie Hall."@en ;
     geo:locatedInCountry geo:UnitedStates .
 
+# -- New York City Venues -----------------------------------------------
+
+mv:MadisonSquareGarden a mv:Arena ;
+    rdfs:label "Madison Square Garden"@en ;
+    rdfs:comment "Iconic multi-purpose arena in Midtown Manhattan, one of the most famous entertainment venues in the world."@en ;
+    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasSeatingCapacity 20789 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:ConcessionStand ,
+                     mv:Restaurant ,
+                     mv:Elevator ,
+                     mv:WheelchairAccessible .
+
+mv:CarnegieHall a mv:ConcertHall ;
+    rdfs:label "Carnegie Hall"@en ;
+    rdfs:comment "World-renowned concert hall in Midtown Manhattan, opened in 1891."@en ;
+    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasSeatingCapacity 2804 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Elevator ,
+                     mv:WheelchairAccessible ,
+                     mv:AssistiveListeningDevice ,
+                     mv:Bar .
+
+mv:RadioCityMusicHall a mv:ConcertHall ;
+    rdfs:label "Radio City Music Hall"@en ;
+    rdfs:comment "Historic entertainment venue in Rockefeller Center, known as the Showplace of the Nation."@en ;
+    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasSeatingCapacity 5960 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:ConcessionStand ,
+                     mv:Elevator ,
+                     mv:WheelchairAccessible ,
+                     mv:AssistiveListeningDevice .
+
+mv:BeaconTheatre a mv:ConcertHall ;
+    rdfs:label "Beacon Theatre"@en ;
+    rdfs:comment "Historic concert venue on the Upper West Side, a New York City landmark since 1929."@en ;
+    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasSeatingCapacity 2894 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:ConcessionStand ,
+                     mv:Elevator ,
+                     mv:WheelchairAccessible .
+
+mv:BrooklynSteel a mv:MusicClub ;
+    rdfs:label "Brooklyn Steel"@en ;
+    rdfs:comment "Modern live music venue in East Williamsburg, Brooklyn, opened in 2017."@en ;
+    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasSeatingCapacity 1800 ;
+    mv:hasSeating false ;
+    mv:offersAmenity mv:Bar ,
+                     mv:WheelchairAccessible .
+
+mv:IrvingPlaza a mv:MusicClub ;
+    rdfs:label "Irving Plaza"@en ;
+    rdfs:comment "Historic music venue in Manhattan's Union Square neighborhood, opened in 1903."@en ;
+    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasSeatingCapacity 1000 ;
+    mv:hasSeating false ;
+    mv:offersAmenity mv:Bar ,
+                     mv:WheelchairAccessible .
+
 geo:Canada a geo:Country , skos:Concept ;
     rdfs:label "Canada"@en ;
     geo:locatedInContinent geo:NorthAmerica ;
