@@ -530,7 +530,62 @@ mv:IrvingPlaza a mv:Venue ;
     mv:hasSeating false ;
     mv:offersAmenity mv:Bar ,
                      mv:WheelchairAccessible .
+# ----------------------------------------------------------------
+mv:SanFrancisco a mv:City ;
+    rdfs:label "San Francisco"@en ;
+    rdfs:comment "A major city in California known for its vibrant live music scene."@en ;
+    mv:locatedInCountry mv:UnitedStates .
 
+mv:Berkeley a mv:City ;
+    rdfs:label "Berkeley"@en ;
+    rdfs:comment "City in California known for its music venues and cultural scene."@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+mv:SantaClara a mv:City ;
+    rdfs:label "Santa Clara"@en ;
+    rdfs:comment "City in California, home to Levi's Stadium, a major concert venue."@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+# -- California Venues -----------------------------------------------
+
+mv:TheFillmore a mv:Venue ;
+    mv:name "The Fillmore"@en ;
+    rdfs:comment "Legendary live music venue in San Francisco, known for its 1960s psychedelic rock history."@en ;
+    mv:hasVenueType mv:Nightclub ;
+    mv:isLocatedIn mv:SanFrancisco ;
+    mv:hasSeatingCapacity 1315 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:WheelchairAccessible ,
+                     mv:Restaurant ,
+                     mv:GreenRoom .
+
+mv:GreekTheatre a mv:Venue ;
+    mv:name "The Greek Theatre"@en ;
+    rdfs:comment "Historic outdoor amphitheater in Berkeley, California, nestled in the hills above the UC Berkeley campus."@en ;
+    mv:hasVenueType mv:Amphitheater ;
+    mv:isLocatedIn mv:Berkeley ;
+    mv:hasSeatingCapacity 8500 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:WheelchairAccessible ,
+                     mv:ParkingArea ,
+                     mv:GreenRoom .
+
+mv:LevisStadium a mv:Venue ;
+    mv:name "Levi's Stadium"@en ;
+    rdfs:comment "Multi-purpose stadium in Santa Clara, California, home of the San Francisco 49ers and major concert events."@en ;
+    mv:hasVenueType mv:Stadium ;
+    mv:isLocatedIn mv:SantaClara ;
+    mv:hasSeatingCapacity 68500 ;
+    mv:hasSeating true ;
+    mv:offersAmenity mv:Bar ,
+                     mv:WheelchairAccessible ,
+                     mv:Restaurant ,
+                     mv:ConcessionStand ,
+                     mv:ParkingArea ,
+                     mv:GreenRoom .
+# --------------------------------------------------------------
 mv:Canada a mv:Country , skos:Concept ;
     rdfs:label "Canada"@en ;
     mv:locatedInContinent mv:NorthAmerica ;
