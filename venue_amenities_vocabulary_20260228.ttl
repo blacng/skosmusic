@@ -1,0 +1,86 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix get: <http://getexcited.com/music-venues#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+## --- Top Concept: Venue Amenities ---
+get:VenueAmenity a skos:Concept ;
+    skos:prefLabel "Venue Amenities"@en ;
+    skos:definition "A controlled vocabulary of amenities that might be found at a music venue. Amenities are the features and services offered at a location where events are held."@en ; 
+
+
+# --- Venue Amenities Concepts ---
+## --- Accessibility ---
+get:AccessibilityFeature a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:topConceptOf get:MusicVenueVocabulary ;
+    skos:prefLabel "Accessibility Feature"@en ;
+    skos:altLabel "Accessible"@en ;
+    skos:definition "Design approach that enables people to perceive, understand, and use digital or physical products"@en ;
+    skos:broader get:VenueAmenity .
+
+get:Elevator a skos:Concept ;
+    skos:prefLabel "Elevator"@en ;
+    skos:altLabel "Lift"@en ;
+    skos:altLabel "Elevators"@en ;
+    skos:definition "Vertical transport device."@en ;
+    skos:exactMatch <http://www.wikidata.org/wiki/Q132911> ;
+    skos:broader get:AccessibilityFeature .
+
+get:AssistiveListeningDevise a skos:Concept ;
+    skos:prefLabel "Assistive listening device"@en ;
+    skos:altLabel "Assistive listening devices"@en ;
+    skos:altLabel "ADL"@en ;
+    skos:definition "Assistive listening devices (ALDs) amplify and clarify sound by cutting down or eliminating ambient noise."@en ;
+    skos:exactMatch <http://www.wikidata.org/wiki/Q4809089> ;
+    skos:broader get:AccessibilityFeature .
+
+get:WheelchairAccessible a skos:Concept ;
+    skos:prefLabel "Wheelchair accessible"@en ;
+    skos:altLabel "Wheelchair seating"@en ;
+    skos:definition "Quality of a building or other location of having an easily-accessible and navigable geography."@en ;
+    skos:exactMatch <http://www.wikidata.org/wiki/Q24192067> ;
+    skos:broader get:AccessibilityFeature .
+
+# --- Food and Drink Offerings ---
+get:FoodAndDrink a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:topConceptOf get:MusicVenueVocabulary ;
+    skos:prefLabel "Food and drink offering"@en ;
+    skos:altLabel "Food options"@en ;
+    skos:definition "Options for buying and consuming food at the venue."@en ;
+    skos:broader get:VenueAmenity .
+
+ get:Bar a skos:Concept ;
+    skos:prefLabel "Bar"@en ;
+    skos:altLabel "Bars"@en ;
+    skos:altLabel "Saloon"@en ;
+    skos:altLabel "Pub"@en ;
+    skos:altLabel "Cantina"@en ;
+    skos:definition "Establishment serving alcoholic beverages for consumption on the premises."@en ;
+    skos:exactMatch <http://www.wikidata.org/wiki/Q187456> ;
+    skos:broader get:FoodAndDrink .
+
+get:ConcessionStand a skos:Concept ;
+    skos:prefLabel "Concession stand"@en ;
+    skos:altLabel "Snack stand"@en ;
+    skos:altLabel "Snack bar"@en ;
+    skos:altLabel "Concession stands"@en ;
+    skos:definition "Inexpensive food counter at a performance or sporting venue."@en ;
+    skos:exactMatch <http://www.wikidata.org/wiki/Q1318768> ;
+    skos:broader get:FoodAndDrink .
+
+ get:Restaurant a skos:Concept ;
+    skos:prefLabel "Resaurant"@en ;
+    skos:altLabel "Eatery"@en ;
+    skos:altLabel "Restaurants"@en ;
+    skos:definition "Single establishment which prepares and serves food, located in building."@en ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q11707> ;
+    skos:broader get:FoodAndDrink .
+
+get:GreenRoom a skos:Concept ;
+    skos:inScheme get:MusicVenueVocabulary ;
+    skos:topConceptOf get:MusicVenueVocabulary ;
+    skos:prefLabel "Green room"@en ;
+    skos:definition "A room in a theater or studio in which performers can relax when they are not performing."@en ;
+    skos:broader get:VenueAmenity .
