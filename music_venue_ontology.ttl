@@ -4,7 +4,6 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix mv:   <http://getexcited.com/music-venues#> .
-@prefix geo:  <http://getexcited.com/music-venues/geo#> .
 
 # ==============================================================================
 # Ontology Declaration
@@ -46,7 +45,7 @@ mv:VenueLocation a skos:Concept ;
     skos:topConceptOf mv:MusicVenueVocabulary ;
     skos:prefLabel "Venue Location"@en ;
     skos:definition "The location of a music venue."@en ;
-    skos:narrower geo:Continent ;
+    skos:narrower mv:Continent ;
     skos:related mv:VenueType .
 
 mv:VenueAmenity a skos:Concept ;
@@ -273,32 +272,32 @@ mv:LiveMusicVenue owl:equivalentClass mv:MusicClub .
 # Classes: Location Hierarchy
 # ==============================================================================
 
-geo:Location a owl:Class ;
+mv:Location a owl:Class ;
     rdfs:label "Location"@en ;
     rdfs:comment "A geographic location associated with a music venue."@en .
 
-geo:Continent a owl:Class , skos:Concept ;
-    rdfs:subClassOf geo:Location ;
+mv:Continent a owl:Class , skos:Concept ;
+    rdfs:subClassOf mv:Location ;
     rdfs:label "Continent"@en ;
     rdfs:comment "A continent where music venues are located."@en ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Continent"@en ;
     skos:definition "A continent where a music venue is located."@en ;
     skos:broader mv:VenueLocation ;
-    skos:narrower geo:NorthAmerica ,
-                  geo:SouthAmerica ,
-                  geo:Europe ,
-                  geo:Asia ,
-                  geo:Africa ,
-                  geo:Oceania .
+    skos:narrower mv:NorthAmerica ,
+                  mv:SouthAmerica ,
+                  mv:Europe ,
+                  mv:Asia ,
+                  mv:Africa ,
+                  mv:Oceania .
 
-geo:Country a owl:Class ;
-    rdfs:subClassOf geo:Location ;
+mv:Country a owl:Class ;
+    rdfs:subClassOf mv:Location ;
     rdfs:label "Country"@en ;
     rdfs:comment "A country where music venues are located."@en .
 
-geo:City a owl:Class ;
-    rdfs:subClassOf geo:Location ;
+mv:City a owl:Class ;
+    rdfs:subClassOf mv:Location ;
     rdfs:label "City"@en ;
     rdfs:comment "A city representing a civic and cultural center for music venues."@en .
 
@@ -310,7 +309,7 @@ mv:isLocatedIn a owl:ObjectProperty ;
     rdfs:label "is located in"@en ;
     rdfs:comment "Relates a facility to its geographic location."@en ;
     rdfs:domain mv:Facility ;
-    rdfs:range geo:Location .
+    rdfs:range mv:Location .
 
 mv:offersAmenity a owl:ObjectProperty ;
     rdfs:label "offers amenity"@en ;
@@ -318,29 +317,41 @@ mv:offersAmenity a owl:ObjectProperty ;
     rdfs:domain mv:Venue ;
     rdfs:range mv:Amenity .
 
-geo:locatedInContinent a owl:ObjectProperty ;
+mv:locatedInContinent a owl:ObjectProperty ;
     rdfs:label "located in continent"@en ;
     rdfs:comment "Relates a country to the continent it belongs to."@en ;
-    rdfs:domain geo:Country ;
-    rdfs:range geo:Continent .
+    rdfs:domain mv:Country ;
+    rdfs:range mv:Continent .
 
-geo:locatedInCountry a owl:ObjectProperty ;
+mv:locatedInCountry a owl:ObjectProperty ;
     rdfs:label "located in country"@en ;
     rdfs:comment "Relates a city to the country it belongs to."@en ;
-    rdfs:domain geo:City ;
-    rdfs:range geo:Country .
+    rdfs:domain mv:City ;
+    rdfs:range mv:Country .
 
-geo:capitalCity a owl:ObjectProperty ;
+mv:capitalCity a owl:ObjectProperty ;
     rdfs:label "capital city"@en ;
     rdfs:comment "Relates a country to its capital city."@en ;
-    rdfs:domain geo:Country ;
-    rdfs:range geo:City .
+    rdfs:domain mv:Country ;
+    rdfs:range mv:City .
 
-geo:mostPopulousCity a owl:ObjectProperty ;
+mv:mostPopulousCity a owl:ObjectProperty ;
     rdfs:label "most populous city"@en ;
     rdfs:comment "Relates a country to its city with the highest population."@en ;
-    rdfs:domain geo:Country ;
-    rdfs:range geo:City .
+    rdfs:domain mv:Country ;
+    rdfs:range mv:City .
+
+mv:hasVenueType a owl:ObjectProperty ;
+    rdfs:label "has venue type"@en ;
+    rdfs:comment "Relates a venue to its specific type or category."@en ;
+    rdfs:domain mv:Venue ;
+    rdfs:range mv:VenueType .
+
+mv:name a owl:DatatypeProperty ;
+    rdfs:label "name"@en ;
+    rdfs:comment "The name of a music venue."@en ;
+    rdfs:domain mv:Venue ;
+    rdfs:range xsd:string .
 
 # ==============================================================================
 # Datatype Properties
@@ -362,65 +373,65 @@ mv:hasSeating a owl:DatatypeProperty ;
 # Individuals: Continents
 # ==============================================================================
 
-geo:NorthAmerica a geo:Continent , skos:Concept ;
+mv:NorthAmerica a mv:Continent , skos:Concept ;
     rdfs:label "North America"@en ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "North America"@en ;
     skos:definition "The North American continent."@en ;
-    skos:broader geo:Continent ;
-    skos:narrower geo:UnitedStates ,
-                  geo:Canada ,
-                  geo:Mexico .
+    skos:broader mv:Continent ;
+    skos:narrower mv:UnitedStates ,
+                  mv:Canada ,
+                  mv:Mexico .
 
-geo:SouthAmerica a geo:Continent , skos:Concept ;
+mv:SouthAmerica a mv:Continent , skos:Concept ;
     rdfs:label "South America"@en ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "South America"@en ;
     skos:definition "The South American continent."@en ;
-    skos:broader geo:Continent ;
-    skos:narrower geo:Brazil ,
-                  geo:Argentina ,
-                  geo:Colombia .
+    skos:broader mv:Continent ;
+    skos:narrower mv:Brazil ,
+                  mv:Argentina ,
+                  mv:Colombia .
 
-geo:Europe a geo:Continent , skos:Concept ;
+mv:Europe a mv:Continent , skos:Concept ;
     rdfs:label "Europe"@en ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Europe"@en ;
     skos:definition "The European continent."@en ;
-    skos:broader geo:Continent ;
-    skos:narrower geo:UnitedKingdom ,
-                  geo:Germany ,
-                  geo:France ,
-                  geo:Spain .
+    skos:broader mv:Continent ;
+    skos:narrower mv:UnitedKingdom ,
+                  mv:Germany ,
+                  mv:France ,
+                  mv:Spain .
 
-geo:Asia a geo:Continent , skos:Concept ;
+mv:Asia a mv:Continent , skos:Concept ;
     rdfs:label "Asia"@en ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Asia"@en ;
     skos:definition "The Asian continent."@en ;
-    skos:broader geo:Continent ;
-    skos:narrower geo:Japan ,
-                  geo:SouthKorea ,
-                  geo:India .
+    skos:broader mv:Continent ;
+    skos:narrower mv:Japan ,
+                  mv:SouthKorea ,
+                  mv:India .
 
-geo:Africa a geo:Continent , skos:Concept ;
+mv:Africa a mv:Continent , skos:Concept ;
     rdfs:label "Africa"@en ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Africa"@en ;
     skos:definition "The African continent."@en ;
-    skos:broader geo:Continent ;
-    skos:narrower geo:SouthAfrica ,
-                  geo:Nigeria ,
-                  geo:Kenya .
+    skos:broader mv:Continent ;
+    skos:narrower mv:SouthAfrica ,
+                  mv:Nigeria ,
+                  mv:Kenya .
 
-geo:Oceania a geo:Continent , skos:Concept ;
+mv:Oceania a mv:Continent , skos:Concept ;
     rdfs:label "Oceania"@en ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Oceania"@en ;
     skos:definition "The Oceanian continent."@en ;
-    skos:broader geo:Continent ;
-    skos:narrower geo:Australia ,
-                  geo:NewZealand .
+    skos:broader mv:Continent ;
+    skos:narrower mv:Australia ,
+                  mv:NewZealand .
 
 # ==============================================================================
 # Individuals: Countries & Cities
@@ -428,32 +439,33 @@ geo:Oceania a geo:Continent , skos:Concept ;
 
 # -- North America -----------------------------------------------
 
-geo:UnitedStates a geo:Country , skos:Concept ;
+mv:UnitedStates a mv:Country , skos:Concept ;
     rdfs:label "United States"@en ;
-    geo:locatedInContinent geo:NorthAmerica ;
-    geo:capitalCity geo:WashingtonDC ;
-    geo:mostPopulousCity geo:NewYorkCity ;
+    mv:locatedInContinent mv:NorthAmerica ;
+    mv:capitalCity mv:WashingtonDC ;
+    mv:mostPopulousCity mv:NewYorkCity ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "United States"@en ;
     skos:definition "A country in North America known for a diverse live music scene."@en ;
-    skos:broader geo:NorthAmerica .
+    skos:broader mv:NorthAmerica .
 
-geo:WashingtonDC a geo:City ;
+mv:WashingtonDC a mv:City ;
     rdfs:label "Washington, D.C."@en ;
     rdfs:comment "Capital of the United States and home to historic concert venues like the Kennedy Center."@en ;
-    geo:locatedInCountry geo:UnitedStates .
+    mv:locatedInCountry mv:UnitedStates .
 
-geo:NewYorkCity a geo:City ;
+mv:NewYorkCity a mv:City ;
     rdfs:label "New York City"@en ;
     rdfs:comment "Most populous U.S. city, renowned for iconic venues like Madison Square Garden and Carnegie Hall."@en ;
-    geo:locatedInCountry geo:UnitedStates .
+    mv:locatedInCountry mv:UnitedStates .
 
 # -- New York City Venues -----------------------------------------------
 
-mv:MadisonSquareGarden a mv:Arena ;
-    rdfs:label "Madison Square Garden"@en ;
+mv:MadisonSquareGarden a mv:Venue ;
+    mv:name "Madison Square Garden"@en ;
     rdfs:comment "Iconic multi-purpose arena in Midtown Manhattan, one of the most famous entertainment venues in the world."@en ;
-    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasVenueType mv:Arena ;
+    mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 20789 ;
     mv:hasSeating true ;
     mv:offersAmenity mv:Bar ,
@@ -462,10 +474,11 @@ mv:MadisonSquareGarden a mv:Arena ;
                      mv:Elevator ,
                      mv:WheelchairAccessible .
 
-mv:CarnegieHall a mv:ConcertHall ;
-    rdfs:label "Carnegie Hall"@en ;
+mv:CarnegieHall a mv:Venue ;
+    mv:name "Carnegie Hall"@en ;
     rdfs:comment "World-renowned concert hall in Midtown Manhattan, opened in 1891."@en ;
-    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasVenueType mv:ConcertHall ;
+    mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 2804 ;
     mv:hasSeating true ;
     mv:offersAmenity mv:Elevator ,
@@ -473,10 +486,11 @@ mv:CarnegieHall a mv:ConcertHall ;
                      mv:AssistiveListeningDevice ,
                      mv:Bar .
 
-mv:RadioCityMusicHall a mv:ConcertHall ;
-    rdfs:label "Radio City Music Hall"@en ;
+mv:RadioCityMusicHall a mv:Venue ;
+    mv:name "Radio City Music Hall"@en ;
     rdfs:comment "Historic entertainment venue in Rockefeller Center, known as the Showplace of the Nation."@en ;
-    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasVenueType mv:ConcertHall ;
+    mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 5960 ;
     mv:hasSeating true ;
     mv:offersAmenity mv:Bar ,
@@ -485,10 +499,11 @@ mv:RadioCityMusicHall a mv:ConcertHall ;
                      mv:WheelchairAccessible ,
                      mv:AssistiveListeningDevice .
 
-mv:BeaconTheatre a mv:ConcertHall ;
-    rdfs:label "Beacon Theatre"@en ;
+mv:BeaconTheatre a mv:Venue ;
+    mv:name "Beacon Theatre"@en ;
     rdfs:comment "Historic concert venue on the Upper West Side, a New York City landmark since 1929."@en ;
-    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasVenueType mv:ConcertHall ;
+    mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 2894 ;
     mv:hasSeating true ;
     mv:offersAmenity mv:Bar ,
@@ -496,399 +511,341 @@ mv:BeaconTheatre a mv:ConcertHall ;
                      mv:Elevator ,
                      mv:WheelchairAccessible .
 
-mv:BrooklynSteel a mv:MusicClub ;
-    rdfs:label "Brooklyn Steel"@en ;
+mv:BrooklynSteel a mv:Venue ;
+    mv:name "Brooklyn Steel"@en ;
     rdfs:comment "Modern live music venue in East Williamsburg, Brooklyn, opened in 2017."@en ;
-    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasVenueType mv:MusicClub ;
+    mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 1800 ;
     mv:hasSeating false ;
     mv:offersAmenity mv:Bar ,
                      mv:WheelchairAccessible .
 
-mv:IrvingPlaza a mv:MusicClub ;
-    rdfs:label "Irving Plaza"@en ;
+mv:IrvingPlaza a mv:Venue ;
+    mv:name "Irving Plaza"@en ;
     rdfs:comment "Historic music venue in Manhattan's Union Square neighborhood, opened in 1903."@en ;
-    mv:isLocatedIn geo:NewYorkCity ;
+    mv:hasVenueType mv:MusicClub ;
+    mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 1000 ;
     mv:hasSeating false ;
     mv:offersAmenity mv:Bar ,
                      mv:WheelchairAccessible .
 
-geo:Canada a geo:Country , skos:Concept ;
+mv:Canada a mv:Country , skos:Concept ;
     rdfs:label "Canada"@en ;
-    geo:locatedInContinent geo:NorthAmerica ;
-    geo:capitalCity geo:Ottawa ;
-    geo:mostPopulousCity geo:Toronto ;
+    mv:locatedInContinent mv:NorthAmerica ;
+    mv:capitalCity mv:Ottawa ;
+    mv:mostPopulousCity mv:Toronto ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Canada"@en ;
     skos:definition "A country in North America with a vibrant music festival culture."@en ;
-    skos:broader geo:NorthAmerica .
+    skos:broader mv:NorthAmerica .
 
-geo:Ottawa a geo:City ;
+mv:Ottawa a mv:City ;
     rdfs:label "Ottawa"@en ;
     rdfs:comment "Capital of Canada, host of the Ottawa Bluesfest and the National Arts Centre."@en ;
-    geo:locatedInCountry geo:Canada .
+    mv:locatedInCountry mv:Canada .
 
-geo:Toronto a geo:City ;
+mv:Toronto a mv:City ;
     rdfs:label "Toronto"@en ;
     rdfs:comment "Most populous Canadian city with a thriving live music scene spanning jazz, indie, and electronic venues."@en ;
-    geo:locatedInCountry geo:Canada .
+    mv:locatedInCountry mv:Canada .
 
-geo:Mexico a geo:Country , skos:Concept ;
+mv:Mexico a mv:Country , skos:Concept ;
     rdfs:label "Mexico"@en ;
-    geo:locatedInContinent geo:NorthAmerica ;
-    geo:capitalCity geo:MexicoCity ;
-    geo:mostPopulousCity geo:MexicoCity ;
+    mv:locatedInContinent mv:NorthAmerica ;
+    mv:capitalCity mv:MexicoCity ;
+    mv:mostPopulousCity mv:MexicoCity ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Mexico"@en ;
     skos:definition "A country in North America with a rich tradition of live music and festival venues."@en ;
-    skos:broader geo:NorthAmerica .
+    skos:broader mv:NorthAmerica .
 
-geo:MexicoCity a geo:City ;
+mv:MexicoCity a mv:City ;
     rdfs:label "Mexico City"@en ;
     rdfs:comment "Capital and most populous city, home to the Palacio de Bellas Artes and Foro Sol."@en ;
-    geo:locatedInCountry geo:Mexico .
+    mv:locatedInCountry mv:Mexico .
 
 # -- South America -----------------------------------------------
 
-geo:Brazil a geo:Country , skos:Concept ;
+mv:Brazil a mv:Country , skos:Concept ;
     rdfs:label "Brazil"@en ;
-    geo:locatedInContinent geo:SouthAmerica ;
-    geo:capitalCity geo:Brasilia ;
-    geo:mostPopulousCity geo:SaoPaulo ;
+    mv:locatedInContinent mv:SouthAmerica ;
+    mv:capitalCity mv:Brasilia ;
+    mv:mostPopulousCity mv:SaoPaulo ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Brazil"@en ;
     skos:definition "A country in South America renowned for samba, bossa nova, and large-scale music festivals."@en ;
-    skos:broader geo:SouthAmerica .
+    skos:broader mv:SouthAmerica .
 
-geo:Brasilia a geo:City ;
+mv:Brasilia a mv:City ;
     rdfs:label "Brasilia"@en ;
     rdfs:comment "Capital of Brazil, a planned city with modernist concert spaces."@en ;
-    geo:locatedInCountry geo:Brazil .
+    mv:locatedInCountry mv:Brazil .
 
-geo:SaoPaulo a geo:City ;
+mv:SaoPaulo a mv:City ;
     rdfs:label "São Paulo"@en ;
     rdfs:comment "Most populous Brazilian city and Latin America's largest music market with venues like Credicard Hall."@en ;
-    geo:locatedInCountry geo:Brazil .
+    mv:locatedInCountry mv:Brazil .
 
-geo:Argentina a geo:Country , skos:Concept ;
+mv:Argentina a mv:Country , skos:Concept ;
     rdfs:label "Argentina"@en ;
-    geo:locatedInContinent geo:SouthAmerica ;
-    geo:capitalCity geo:BuenosAires ;
-    geo:mostPopulousCity geo:BuenosAires ;
+    mv:locatedInContinent mv:SouthAmerica ;
+    mv:capitalCity mv:BuenosAires ;
+    mv:mostPopulousCity mv:BuenosAires ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Argentina"@en ;
     skos:definition "A country in South America with a strong tango and rock music venue scene."@en ;
-    skos:broader geo:SouthAmerica .
+    skos:broader mv:SouthAmerica .
 
-geo:BuenosAires a geo:City ;
+mv:BuenosAires a mv:City ;
     rdfs:label "Buenos Aires"@en ;
     rdfs:comment "Capital and most populous city, world capital of tango with legendary venues like Teatro Colón."@en ;
-    geo:locatedInCountry geo:Argentina .
+    mv:locatedInCountry mv:Argentina .
 
-geo:Colombia a geo:Country , skos:Concept ;
+mv:Colombia a mv:Country , skos:Concept ;
     rdfs:label "Colombia"@en ;
-    geo:locatedInContinent geo:SouthAmerica ;
-    geo:capitalCity geo:Bogota ;
-    geo:mostPopulousCity geo:Bogota ;
+    mv:locatedInContinent mv:SouthAmerica ;
+    mv:capitalCity mv:Bogota ;
+    mv:mostPopulousCity mv:Bogota ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Colombia"@en ;
     skos:definition "A country in South America known for cumbia, salsa, and growing live music venues."@en ;
-    skos:broader geo:SouthAmerica .
+    skos:broader mv:SouthAmerica .
 
-geo:Bogota a geo:City ;
+mv:Bogota a mv:City ;
     rdfs:label "Bogotá"@en ;
     rdfs:comment "Capital and most populous city, home to a growing salsa, cumbia, and electronic music scene."@en ;
-    geo:locatedInCountry geo:Colombia .
+    mv:locatedInCountry mv:Colombia .
 
 # -- Europe -----------------------------------------------
 
-geo:UnitedKingdom a geo:Country , skos:Concept ;
+mv:UnitedKingdom a mv:Country , skos:Concept ;
     rdfs:label "United Kingdom"@en ;
-    geo:locatedInContinent geo:Europe ;
-    geo:capitalCity geo:London ;
-    geo:mostPopulousCity geo:London ;
+    mv:locatedInContinent mv:Europe ;
+    mv:capitalCity mv:London ;
+    mv:mostPopulousCity mv:London ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "United Kingdom"@en ;
     skos:definition "A country in Europe with a historic and influential live music and concert venue culture."@en ;
-    skos:broader geo:Europe .
+    skos:broader mv:Europe .
 
-geo:London a geo:City ;
+mv:London a mv:City ;
     rdfs:label "London"@en ;
     rdfs:comment "Capital and most populous city, home to the Royal Albert Hall, O2 Arena, and Brixton Academy."@en ;
-    geo:locatedInCountry geo:UnitedKingdom .
+    mv:locatedInCountry mv:UnitedKingdom .
 
-geo:Germany a geo:Country , skos:Concept ;
+mv:Germany a mv:Country , skos:Concept ;
     rdfs:label "Germany"@en ;
-    geo:locatedInContinent geo:Europe ;
-    geo:capitalCity geo:Berlin ;
-    geo:mostPopulousCity geo:Berlin ;
+    mv:locatedInContinent mv:Europe ;
+    mv:capitalCity mv:Berlin ;
+    mv:mostPopulousCity mv:Berlin ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Germany"@en ;
     skos:definition "A country in Europe known for its electronic music clubs and classical concert halls."@en ;
-    skos:broader geo:Europe .
+    skos:broader mv:Europe .
 
-geo:Berlin a geo:City ;
+mv:Berlin a mv:City ;
     rdfs:label "Berlin"@en ;
     rdfs:comment "Capital and most populous city, a global epicenter of electronic music with clubs like Berghain."@en ;
-    geo:locatedInCountry geo:Germany .
+    mv:locatedInCountry mv:Germany .
 
-geo:France a geo:Country , skos:Concept ;
+mv:France a mv:Country , skos:Concept ;
     rdfs:label "France"@en ;
-    geo:locatedInContinent geo:Europe ;
-    geo:capitalCity geo:Paris ;
-    geo:mostPopulousCity geo:Paris ;
+    mv:locatedInContinent mv:Europe ;
+    mv:capitalCity mv:Paris ;
+    mv:mostPopulousCity mv:Paris ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "France"@en ;
     skos:definition "A country in Europe with a rich tradition of cabarets, jazz clubs, and concert venues."@en ;
-    skos:broader geo:Europe .
+    skos:broader mv:Europe .
 
-geo:Paris a geo:City ;
+mv:Paris a mv:City ;
     rdfs:label "Paris"@en ;
     rdfs:comment "Capital and most populous city, historic home of cabaret, jazz, and the Olympia music hall."@en ;
-    geo:locatedInCountry geo:France .
+    mv:locatedInCountry mv:France .
 
-geo:Spain a geo:Country , skos:Concept ;
+mv:Spain a mv:Country , skos:Concept ;
     rdfs:label "Spain"@en ;
-    geo:locatedInContinent geo:Europe ;
-    geo:capitalCity geo:Madrid ;
-    geo:mostPopulousCity geo:Madrid ;
+    mv:locatedInContinent mv:Europe ;
+    mv:capitalCity mv:Madrid ;
+    mv:mostPopulousCity mv:Madrid ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Spain"@en ;
     skos:definition "A country in Europe known for flamenco venues and open-air music festivals."@en ;
-    skos:broader geo:Europe .
+    skos:broader mv:Europe .
 
-geo:Madrid a geo:City ;
+mv:Madrid a mv:City ;
     rdfs:label "Madrid"@en ;
     rdfs:comment "Capital and most populous city, known for flamenco tablaos and the WiZink Center arena."@en ;
-    geo:locatedInCountry geo:Spain .
+    mv:locatedInCountry mv:Spain .
 
 # -- Asia -----------------------------------------------
 
-geo:Japan a geo:Country , skos:Concept ;
+mv:Japan a mv:Country , skos:Concept ;
     rdfs:label "Japan"@en ;
-    geo:locatedInContinent geo:Asia ;
-    geo:capitalCity geo:Tokyo ;
-    geo:mostPopulousCity geo:Tokyo ;
+    mv:locatedInContinent mv:Asia ;
+    mv:capitalCity mv:Tokyo ;
+    mv:mostPopulousCity mv:Tokyo ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Japan"@en ;
     skos:definition "A country in Asia with a thriving live house and concert hall culture."@en ;
-    skos:broader geo:Asia .
+    skos:broader mv:Asia .
 
-geo:Tokyo a geo:City ;
+mv:Tokyo a mv:City ;
     rdfs:label "Tokyo"@en ;
     rdfs:comment "Capital and most populous city, famous for live houses, the Budokan, and Tokyo Dome."@en ;
-    geo:locatedInCountry geo:Japan .
+    mv:locatedInCountry mv:Japan .
 
-geo:SouthKorea a geo:Country , skos:Concept ;
+mv:SouthKorea a mv:Country , skos:Concept ;
     rdfs:label "South Korea"@en ;
-    geo:locatedInContinent geo:Asia ;
-    geo:capitalCity geo:Seoul ;
-    geo:mostPopulousCity geo:Seoul ;
+    mv:locatedInContinent mv:Asia ;
+    mv:capitalCity mv:Seoul ;
+    mv:mostPopulousCity mv:Seoul ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "South Korea"@en ;
     skos:definition "A country in Asia known for K-pop concert arenas and live music cafes."@en ;
-    skos:broader geo:Asia .
+    skos:broader mv:Asia .
 
-geo:Seoul a geo:City ;
+mv:Seoul a mv:City ;
     rdfs:label "Seoul"@en ;
     rdfs:comment "Capital and most populous city, the heart of K-pop with arenas like KSPO Dome and Hongdae live clubs."@en ;
-    geo:locatedInCountry geo:SouthKorea .
+    mv:locatedInCountry mv:SouthKorea .
 
-geo:India a geo:Country , skos:Concept ;
+mv:India a mv:Country , skos:Concept ;
     rdfs:label "India"@en ;
-    geo:locatedInContinent geo:Asia ;
-    geo:capitalCity geo:NewDelhi ;
-    geo:mostPopulousCity geo:Mumbai ;
+    mv:locatedInContinent mv:Asia ;
+    mv:capitalCity mv:NewDelhi ;
+    mv:mostPopulousCity mv:Mumbai ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "India"@en ;
     skos:definition "A country in Asia with diverse music venues spanning classical, Bollywood, and contemporary scenes."@en ;
-    skos:broader geo:Asia .
+    skos:broader mv:Asia .
 
-geo:NewDelhi a geo:City ;
+mv:NewDelhi a mv:City ;
     rdfs:label "New Delhi"@en ;
     rdfs:comment "Capital of India with venues like the Siri Fort Auditorium and a growing indie music scene."@en ;
-    geo:locatedInCountry geo:India .
+    mv:locatedInCountry mv:India .
 
-geo:Mumbai a geo:City ;
+mv:Mumbai a mv:City ;
     rdfs:label "Mumbai"@en ;
     rdfs:comment "Most populous Indian city and center of Bollywood music, home to the NSCI Dome and Blue Frog."@en ;
-    geo:locatedInCountry geo:India .
+    mv:locatedInCountry mv:India .
 
 # -- Africa -----------------------------------------------
 
-geo:SouthAfrica a geo:Country , skos:Concept ;
+mv:SouthAfrica a mv:Country , skos:Concept ;
     rdfs:label "South Africa"@en ;
-    geo:locatedInContinent geo:Africa ;
-    geo:capitalCity geo:Pretoria ;
-    geo:mostPopulousCity geo:Johannesburg ;
+    mv:locatedInContinent mv:Africa ;
+    mv:capitalCity mv:Pretoria ;
+    mv:mostPopulousCity mv:Johannesburg ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "South Africa"@en ;
     skos:definition "A country in Africa with a vibrant live music scene spanning jazz, kwaito, and amapiano venues."@en ;
-    skos:broader geo:Africa .
+    skos:broader mv:Africa .
 
-geo:Pretoria a geo:City ;
+mv:Pretoria a mv:City ;
     rdfs:label "Pretoria"@en ;
     rdfs:comment "Executive capital of South Africa with the State Theatre and growing jazz scene."@en ;
-    geo:locatedInCountry geo:SouthAfrica .
+    mv:locatedInCountry mv:SouthAfrica .
 
-geo:Johannesburg a geo:City ;
+mv:Johannesburg a mv:City ;
     rdfs:label "Johannesburg"@en ;
     rdfs:comment "Most populous South African city, birthplace of kwaito and amapiano with venues across Braamfontein."@en ;
-    geo:locatedInCountry geo:SouthAfrica .
+    mv:locatedInCountry mv:SouthAfrica .
 
-geo:Nigeria a geo:Country , skos:Concept ;
+mv:Nigeria a mv:Country , skos:Concept ;
     rdfs:label "Nigeria"@en ;
-    geo:locatedInContinent geo:Africa ;
-    geo:capitalCity geo:Abuja ;
-    geo:mostPopulousCity geo:Lagos ;
+    mv:locatedInContinent mv:Africa ;
+    mv:capitalCity mv:Abuja ;
+    mv:mostPopulousCity mv:Lagos ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Nigeria"@en ;
     skos:definition "A country in Africa known for Afrobeats venues and a growing live music industry."@en ;
-    skos:broader geo:Africa .
+    skos:broader mv:Africa .
 
-geo:Abuja a geo:City ;
+mv:Abuja a mv:City ;
     rdfs:label "Abuja"@en ;
     rdfs:comment "Capital of Nigeria with emerging concert and festival venues."@en ;
-    geo:locatedInCountry geo:Nigeria .
+    mv:locatedInCountry mv:Nigeria .
 
-geo:Lagos a geo:City ;
+mv:Lagos a mv:City ;
     rdfs:label "Lagos"@en ;
     rdfs:comment "Most populous Nigerian city and the beating heart of Afrobeats with venues like Eko Hotel and the Shrine."@en ;
-    geo:locatedInCountry geo:Nigeria .
+    mv:locatedInCountry mv:Nigeria .
 
-geo:Kenya a geo:Country , skos:Concept ;
+mv:Kenya a mv:Country , skos:Concept ;
     rdfs:label "Kenya"@en ;
-    geo:locatedInContinent geo:Africa ;
-    geo:capitalCity geo:Nairobi ;
-    geo:mostPopulousCity geo:Nairobi ;
+    mv:locatedInContinent mv:Africa ;
+    mv:capitalCity mv:Nairobi ;
+    mv:mostPopulousCity mv:Nairobi ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Kenya"@en ;
     skos:definition "A country in Africa with an emerging live music and festival venue scene."@en ;
-    skos:broader geo:Africa .
+    skos:broader mv:Africa .
 
-geo:Nairobi a geo:City ;
+mv:Nairobi a mv:City ;
     rdfs:label "Nairobi"@en ;
     rdfs:comment "Capital and most populous city, hub of East African live music with the Carnivore and Alchemist venues."@en ;
-    geo:locatedInCountry geo:Kenya .
+    mv:locatedInCountry mv:Kenya .
 
 # -- Oceania -----------------------------------------------
 
-geo:Australia a geo:Country , skos:Concept ;
+mv:Australia a mv:Country , skos:Concept ;
     rdfs:label "Australia"@en ;
-    geo:locatedInContinent geo:Oceania ;
-    geo:capitalCity geo:Canberra ;
-    geo:mostPopulousCity geo:Sydney ;
+    mv:locatedInContinent mv:Oceania ;
+    mv:capitalCity mv:Canberra ;
+    mv:mostPopulousCity mv:Sydney ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "Australia"@en ;
     skos:definition "A country in Oceania known for outdoor music festivals and live pub music venues."@en ;
-    skos:broader geo:Oceania .
+    skos:broader mv:Oceania .
 
-geo:Canberra a geo:City ;
+mv:Canberra a mv:City ;
     rdfs:label "Canberra"@en ;
     rdfs:comment "Capital of Australia, home to the Canberra Theatre Centre and annual music festivals."@en ;
-    geo:locatedInCountry geo:Australia .
+    mv:locatedInCountry mv:Australia .
 
-geo:Sydney a geo:City ;
+mv:Sydney a mv:City ;
     rdfs:label "Sydney"@en ;
     rdfs:comment "Most populous Australian city, home to the Sydney Opera House and Enmore Theatre."@en ;
-    geo:locatedInCountry geo:Australia .
+    mv:locatedInCountry mv:Australia .
 
-geo:NewZealand a geo:Country , skos:Concept ;
+mv:NewZealand a mv:Country , skos:Concept ;
     rdfs:label "New Zealand"@en ;
-    geo:locatedInContinent geo:Oceania ;
-    geo:capitalCity geo:Wellington ;
-    geo:mostPopulousCity geo:Auckland ;
+    mv:locatedInContinent mv:Oceania ;
+    mv:capitalCity mv:Wellington ;
+    mv:mostPopulousCity mv:Auckland ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:prefLabel "New Zealand"@en ;
     skos:definition "A country in Oceania with intimate live music venues and growing festival culture."@en ;
-    skos:broader geo:Oceania .
+    skos:broader mv:Oceania .
 
-geo:Wellington a geo:City ;
+mv:Wellington a mv:City ;
     rdfs:label "Wellington"@en ;
     rdfs:comment "Capital of New Zealand with intimate live music venues like San Fran and Meow."@en ;
-    geo:locatedInCountry geo:NewZealand .
+    mv:locatedInCountry mv:NewZealand .
 
-geo:Auckland a geo:City ;
+mv:Auckland a mv:City ;
     rdfs:label "Auckland"@en ;
     rdfs:comment "Most populous New Zealand city, home to the Spark Arena and Powerstation."@en ;
-    geo:locatedInCountry geo:NewZealand .
+    mv:locatedInCountry mv:NewZealand .
 
 # ==============================================================================
-# SKOS Amenity Concepts
+# Individuals: Amenities
 # ==============================================================================
+# OWL type declarations for amenity concepts referenced by venue instances.
+# SKOS labels, definitions, and hierarchy are in music_venue_vocabulary.ttl.
 
-mv:AccessibilityFeature a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Accessibility Feature"@en ;
-    skos:altLabel "Accessible"@en ;
-    skos:definition "Design approach that enables people to perceive, understand, and use digital or physical products"@en ;
-    skos:broader mv:VenueAmenity ;
-    skos:narrower mv:Elevator ,
-                  mv:AssistiveListeningDevice ,
-                  mv:WheelchairAccessible .
+mv:AccessibilityFeature a mv:Amenity .
+mv:Elevator a mv:Amenity .
+mv:AssistiveListeningDevice a mv:Amenity .
+mv:WheelchairAccessible a mv:Amenity .
 
-mv:Elevator a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Elevator"@en ;
-    skos:altLabel "Lift"@en , "Elevators"@en ;
-    skos:definition "Vertical transport device."@en ;
-    skos:exactMatch <http://www.wikidata.org/wiki/Q132911> ;
-    skos:broader mv:AccessibilityFeature .
-
-mv:AssistiveListeningDevice a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Assistive listening device"@en ;
-    skos:altLabel "Assistive listening devices"@en , "ALD"@en ;
-    skos:definition "Assistive listening devices (ALDs) amplify and clarify sound by cutting down or eliminating ambient noise."@en ;
-    skos:exactMatch <http://www.wikidata.org/wiki/Q4809089> ;
-    skos:broader mv:AccessibilityFeature .
-
-mv:WheelchairAccessible a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Wheelchair accessible"@en ;
-    skos:altLabel "Wheelchair seating"@en ;
-    skos:definition "Quality of a building or other location of having an easily-accessible and navigable geography."@en ;
-    skos:exactMatch <http://www.wikidata.org/wiki/Q24192067> ;
-    skos:broader mv:AccessibilityFeature .
-
-mv:FoodAndDrink a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Food and drink offering"@en ;
-    skos:altLabel "Food options"@en ;
-    skos:definition "Options for buying and consuming food at the venue."@en ;
-    skos:broader mv:VenueAmenity ;
-    skos:narrower mv:Bar ,
-                  mv:ConcessionStand ,
-                  mv:Restaurant ;
+mv:FoodAndDrink a mv:EatingOrDrinkingEstablishment ;
     skos:closeMatch mv:EatingOrDrinkingEstablishment .
+mv:Bar a mv:EatingOrDrinkingEstablishment .
+mv:ConcessionStand a mv:EatingOrDrinkingEstablishment .
+mv:Restaurant a mv:EatingOrDrinkingEstablishment .
 
-mv:Bar a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Bar"@en ;
-    skos:altLabel "Bars"@en , "Saloon"@en , "Pub"@en , "Cantina"@en ;
-    skos:definition "Establishment serving alcoholic beverages for consumption on the premises."@en ;
-    skos:exactMatch <http://www.wikidata.org/wiki/Q187456> ;
-    skos:broader mv:FoodAndDrink .
-
-mv:ConcessionStand a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Concession stand"@en ;
-    skos:altLabel "Snack stand"@en , "Snack bar"@en , "Concession stands"@en ;
-    skos:definition "Inexpensive food counter at a performance or sporting venue."@en ;
-    skos:exactMatch <http://www.wikidata.org/wiki/Q1318768> ;
-    skos:broader mv:FoodAndDrink .
-
-mv:Restaurant a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Restaurant"@en ;
-    skos:altLabel "Eatery"@en , "Restaurants"@en ;
-    skos:definition "Single establishment which prepares and serves food, located in building."@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q11707> ;
-    skos:broader mv:FoodAndDrink .
-
-mv:GreenRoom a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Green room"@en ;
-    skos:definition "A room in a theater or studio in which performers can relax when they are not performing."@en ;
-    skos:broader mv:VenueAmenity .
+mv:GreenRoom a mv:Room .
