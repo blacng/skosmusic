@@ -4,6 +4,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix mv:   <http://getexcited.com/music-venues#> .
+@prefix geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#> .
 
 # ==============================================================================
 # Ontology Declaration
@@ -14,7 +15,7 @@
     rdfs:label "Music Venue Ontology"@en ;
     rdfs:comment "A unified OWL ontology and SKOS vocabulary for describing music venues, their types, facilities, amenities, and geographic locations."@en ;
     owl:imports <http://www.w3.org/2004/02/skos/core> ;
-    owl:versionInfo "2.0" .
+    owl:versionInfo "3.0" .
 
 # ==============================================================================
 # SKOS Concept Scheme
@@ -23,37 +24,26 @@
 mv:MusicVenueVocabulary a skos:ConceptScheme ;
     skos:prefLabel "Music Venue Vocabulary"@en ;
     skos:definition "A vocabulary for describing music venues."@en ;
-    skos:hasTopConcept mv:VenueType ,
-                       mv:VenueLocation ,
-                       mv:VenueAmenity .
+    skos:hasTopConcept mv:VenueLocation ,
+                       mv:VenueAmenity ,
+                       mv:EventType .
 
 # ==============================================================================
 # SKOS Top Concepts
 # ==============================================================================
-
-mv:VenueType a skos:Concept ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:topConceptOf mv:MusicVenueVocabulary ;
-    skos:prefLabel "Venue Type"@en ;
-    skos:definition "The type or category of a music venue."@en ;
-    skos:narrower mv:Venue ;
-    skos:related mv:VenueLocation ,
-                 mv:VenueAmenity .
 
 mv:VenueLocation a skos:Concept ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:topConceptOf mv:MusicVenueVocabulary ;
     skos:prefLabel "Venue Location"@en ;
     skos:definition "The location of a music venue."@en ;
-    skos:narrower mv:Continent ;
-    skos:related mv:VenueType .
+    skos:narrower mv:Continent .
 
 mv:VenueAmenity a skos:Concept ;
     skos:inScheme mv:MusicVenueVocabulary ;
     skos:topConceptOf mv:MusicVenueVocabulary ;
     skos:prefLabel "Venue Amenities"@en ;
     skos:definition "A controlled vocabulary of amenities that might be found at a music venue. Amenities are the features and services offered at a location where events are held."@en ;
-    skos:related mv:VenueType ;
     skos:narrower mv:AccessibilityFeature ,
                   mv:FoodAndDrink ,
                   mv:GreenRoom ;
@@ -74,6 +64,12 @@ mv:Amenity a owl:Class ;
     rdfs:label "Amenity"@en ;
     rdfs:comment "Amenities that might be found at a music venue. Amenities are the features and services offered at a location where events are held."@en .
 
+mv:AccessibilityFeature a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:subClassOf mv:Amenity ;
+    rdfs:label "Accessibility Feature"@en ;
+    rdfs:comment "Design features that enable accessibility for people with disabilities."@en .
+
 mv:Room a owl:Class ;
     rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
     rdfs:subClassOf mv:Amenity ;
@@ -93,180 +89,154 @@ mv:ParkingArea a owl:Class ;
 # Classes: Venue Type Hierarchy (Sergio)
 # ==============================================================================
 
-mv:Venue a owl:Class , skos:Concept ;
+mv:Venue a owl:Class ;
     rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
     rdfs:subClassOf mv:Facility ;
     rdfs:label "Venue"@en ;
-    rdfs:comment "A physical location where events, performances, or gatherings take place."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Venue"@en ;
-    skos:definition "A physical location or facility where music performances and events take place."@en ;
-    skos:broader mv:VenueType ;
-    skos:narrower mv:IndoorVenue ,
-                  mv:OutdoorConcertVenue ,
-                  mv:MultiUnitVenue .
+    rdfs:comment "A physical location where events, performances, or gatherings take place."@en .
 
 # -- Indoor Venues -----------------------------------------------
 
-mv:IndoorVenue a owl:Class , skos:Concept ;
+mv:IndoorVenue a owl:Class ;
     rdfs:subClassOf mv:Venue ;
     rdfs:label "Indoor Venue"@en ;
-    rdfs:comment "Venue primarily designed for events held indoors."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Indoor Venue"@en ;
-    skos:definition "An enclosed venue for music performances and events."@en ;
-    skos:broader mv:Venue ;
-    skos:narrower mv:ConcertHall ,
-                  mv:Arena ,
-                  mv:Nightclub ,
-                  mv:MusicClub ,
-                  mv:Cabaret .
+    rdfs:comment "Venue primarily designed for events held indoors."@en .
 
-mv:ConcertHall a owl:Class , skos:Concept ;
+mv:ConcertHall a owl:Class ;
     rdfs:subClassOf mv:IndoorVenue ;
     rdfs:label "Concert Hall"@en ;
-    rdfs:comment "Hall designed for concerts and musical performances."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Concert Hall"@en ;
-    skos:altLabel "music hall"@en , "recital hall"@en ;
-    skos:definition "Hall designed for concerts and musical performances"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q10547643> ;
-    skos:broader mv:IndoorVenue .
+    rdfs:comment "Hall designed for concerts and musical performances."@en .
 
-mv:Arena a owl:Class , skos:Concept ;
+mv:Arena a owl:Class ;
     rdfs:subClassOf mv:IndoorVenue ;
     rdfs:label "Arena"@en ;
-    rdfs:comment "Large indoor venue with a central performance area surrounded by seating."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Arena"@en ;
-    skos:altLabel "sports arena"@en , "indoor arena"@en , "event arena"@en ;
-    skos:definition "Enclosed venue for sports, concerts, and other events"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q641226> ;
-    skos:broader mv:IndoorVenue .
+    rdfs:comment "Large indoor venue with a central performance area surrounded by seating."@en .
 
-mv:Nightclub a owl:Class , skos:Concept ;
+mv:Nightclub a owl:Class ;
     rdfs:subClassOf mv:IndoorVenue ;
     rdfs:label "Nightclub"@en ;
-    rdfs:comment "Venue primarily focused on music and dancing, often with a bar."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Nightclub"@en ;
-    skos:altLabel "club"@en , "dance club"@en , "discotheque"@en , "night spot"@en , "techno club"@en ;
-    skos:definition "Entertainment venue operating late at night with music and dancing"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q622425> ;
-    skos:broader mv:IndoorVenue .
+    rdfs:comment "Venue primarily focused on music and dancing, often with a bar."@en .
 
-mv:MusicClub a owl:Class , skos:Concept ;
+mv:MusicClub a owl:Class ;
     rdfs:subClassOf mv:IndoorVenue ;
     rdfs:label "Music Club"@en ;
-    rdfs:comment "Smaller indoor venue focused on live music performances."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Live Music Club"@en ;
-    skos:altLabel "music club"@en , "music bar"@en , "gig venue"@en ;
-    skos:definition "Small to medium-sized venue for live music performances"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q63493660> ;
-    skos:broader mv:IndoorVenue .
+    rdfs:comment "Smaller indoor venue focused on live music performances."@en .
 
-mv:Cabaret a owl:Class , skos:Concept ;
+mv:Cabaret a owl:Class ;
     rdfs:subClassOf mv:IndoorVenue ;
     rdfs:label "Cabaret"@en ;
-    rdfs:comment "Venue offering a mix of music, comedy, and other performances in an intimate setting."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Cabaret"@en ;
-    skos:altLabel "cabaret club"@en , "cabaret theater"@en , "supper club"@en ;
-    skos:definition "Entertainment venue featuring music, song, dance, and drama"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q131183> ;
-    skos:broader mv:IndoorVenue .
+    rdfs:comment "Venue offering a mix of music, comedy, and other performances in an intimate setting."@en .
 
 # -- Outdoor Venues -----------------------------------------------
 
-mv:OutdoorConcertVenue a owl:Class , skos:Concept ;
+mv:OutdoorConcertVenue a owl:Class ;
     rdfs:subClassOf mv:Venue ;
     rdfs:label "Outdoor Concert Venue"@en ;
-    rdfs:comment "Open-air venue designed for musical concerts."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Outdoor Venue"@en ;
-    skos:altLabel "outdoor music venue"@en , "open-air concert hall"@en , "outdoor amphitheater"@en ;
-    skos:definition "Open-air venue designed for musical concerts"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q50418254> ;
-    skos:broader mv:Venue ;
-    skos:narrower mv:Amphitheater ,
-                  mv:Stadium ,
-                  mv:Fairground .
+    rdfs:comment "Open-air venue designed for musical concerts."@en .
 
-mv:Amphitheater a owl:Class , skos:Concept ;
+mv:Amphitheater a owl:Class ;
     rdfs:subClassOf mv:OutdoorConcertVenue ;
     rdfs:label "Amphitheater"@en ;
-    rdfs:comment "Open-air venue with a stage and tiered seating, often used for concerts and performances."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Amphitheater"@en ;
-    skos:altLabel "amphitheatre"@en ;
-    skos:definition "Open-air venue used for entertainment and performances"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q54831> ;
-    skos:broader mv:OutdoorConcertVenue .
+    rdfs:comment "Open-air venue with a stage and tiered seating, often used for concerts and performances."@en .
 
-mv:Stadium a owl:Class , skos:Concept ;
+mv:Stadium a owl:Class ;
     rdfs:subClassOf mv:OutdoorConcertVenue ;
     rdfs:label "Stadium"@en ;
-    rdfs:comment "Large outdoor venue with a field or stage and extensive seating, often used for concerts and sporting events."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Stadium"@en ;
-    skos:altLabel "sports stadium"@en , "athletic stadium"@en ;
-    skos:definition "Large open-air venue for sports and large-scale performance events with tiered seating"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q483110> ;
-    skos:broader mv:OutdoorConcertVenue .
+    rdfs:comment "Large outdoor venue with a field or stage and extensive seating, often used for concerts and sporting events."@en .
 
-mv:Fairground a owl:Class , skos:Concept ;
+mv:Fairground a owl:Class ;
     rdfs:subClassOf mv:OutdoorConcertVenue ;
     rdfs:label "Fairground"@en ;
-    rdfs:comment "Open outdoor area used for fairs, festivals, and large events, which may include a stage for concerts."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Fairground"@en ;
-    skos:altLabel "fair ground"@en ;
-    skos:definition "Permanent exhibition for hosting fairs"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q2948561> ;
-    skos:broader mv:OutdoorConcertVenue .
+    rdfs:comment "Open outdoor area used for fairs, festivals, and large events, which may include a stage for concerts."@en .
 
 # -- Multi-Unit Venues -----------------------------------------------
 
-mv:MultiUnitVenue a owl:Class , skos:Concept ;
+mv:MultiUnitVenue a owl:Class ;
     rdfs:subClassOf mv:Venue ;
     rdfs:label "Multi-Unit Venue"@en ;
-    rdfs:comment "Venue complex that contains multiple distinct event/performance spaces."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Multi-Unit Venue"@en ;
-    skos:definition "A complex containing multiple performance spaces or halls within a single facility."@en ;
-    skos:broader mv:Venue ;
-    skos:narrower mv:PerformingArtsBuilding ,
-                  mv:CommunityCenter .
+    rdfs:comment "Venue complex that contains multiple distinct event/performance spaces."@en .
 
-mv:PerformingArtsBuilding a owl:Class , skos:Concept ;
+mv:PerformingArtsBuilding a owl:Class ;
     rdfs:subClassOf mv:MultiUnitVenue ;
     rdfs:label "Performing Arts Building"@en ;
-    rdfs:comment "Venue complex that includes multiple performance spaces, such as theaters, concert halls, and rehearsal rooms."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Performing arts building"@en ;
-    skos:altLabel "performing arts centre"@en , "arts center"@en , "cultural center"@en , "arts complex"@en ;
-    skos:definition "Complex with multiple venues for various performing arts"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q3469910> ;
-    skos:broader mv:MultiUnitVenue .
+    rdfs:comment "Venue complex that includes multiple performance spaces, such as theaters, concert halls, and rehearsal rooms."@en .
 
-mv:CommunityCenter a owl:Class , skos:Concept ;
+mv:CommunityCenter a owl:Class ;
     rdfs:subClassOf mv:MultiUnitVenue ;
     rdfs:label "Community Center"@en ;
-    rdfs:comment "Multi-purpose venue that may include spaces for performances, events, and community gatherings."@en ;
-    skos:inScheme mv:MusicVenueVocabulary ;
-    skos:prefLabel "Community center"@en ;
-    skos:altLabel "community centre"@en , "civic center"@en , "community hall"@en ;
-    skos:definition "Public facility for community activities and gatherings"@en ;
-    skos:exactMatch <https://www.wikidata.org/wiki/Q77115> ;
-    skos:broader mv:MultiUnitVenue .
+    rdfs:comment "Multi-purpose venue that may include spaces for performances, events, and community gatherings."@en .
 
 # ==============================================================================
-# OWL/SKOS Equivalences
+# OWL Equivalences
 # ==============================================================================
 
 mv:OutdoorVenue owl:equivalentClass mv:OutdoorConcertVenue .
 mv:LiveMusicVenue owl:equivalentClass mv:MusicClub .
+
+# ==============================================================================
+# Classes: Music Event
+# ==============================================================================
+
+mv:MusicEvent a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "Music Event"@en ;
+    rdfs:comment "A live music performance occurring at a venue."@en .
+
+# ==============================================================================
+# Classes: Event Type & Admission Policy (from patch)
+# ==============================================================================
+
+mv:EventType a owl:Class , skos:Concept ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "Event Type"@en ;
+    rdfs:comment "A category of event or performance that can be hosted at a music venue."@en ;
+    skos:inScheme mv:MusicVenueVocabulary ;
+    skos:topConceptOf mv:MusicVenueVocabulary ;
+    skos:prefLabel "Event Type"@en ;
+    skos:definition "A controlled category describing the type of event hosted at a venue, such as a concert, DJ performance, or music festival."@en .
+
+mv:Concert a mv:EventType , skos:Concept ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "Concert"@en ;
+    skos:inScheme mv:MusicVenueVocabulary ;
+    skos:prefLabel "Concert"@en ;
+    skos:altLabel "live concert"@en , "music concert"@en ;
+    skos:definition "A live musical performance before an audience."@en ;
+    skos:broader mv:EventType ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q183951> .
+
+mv:DJPerformance a mv:EventType , skos:Concept ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "DJ Performance"@en ;
+    skos:inScheme mv:MusicVenueVocabulary ;
+    skos:prefLabel "DJ Performance"@en ;
+    skos:altLabel "DJ set"@en , "DJ night"@en ;
+    skos:definition "A live performance by a disc jockey mixing pre-recorded music."@en ;
+    skos:broader mv:EventType ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q130398> .
+
+mv:MusicFestival a mv:EventType , skos:Concept ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "Music Festival"@en ;
+    skos:inScheme mv:MusicVenueVocabulary ;
+    skos:prefLabel "Music Festival"@en ;
+    skos:altLabel "festival"@en , "outdoor festival"@en ;
+    skos:definition "A large-scale music event featuring multiple artists, typically over one or more days."@en ;
+    skos:broader mv:EventType ;
+    skos:exactMatch <https://www.wikidata.org/wiki/Q484921> .
+
+mv:AdmissionPolicy a owl:Class ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "Admission Policy"@en ;
+    rdfs:comment "A controlled policy describing age or entry restrictions at a music venue."@en .
+
+mv:AllAges a mv:AdmissionPolicy ;
+    rdfs:label "All Ages"@en ;
+    rdfs:comment "Venue admits attendees of all ages without restriction."@en .
+
+mv:AgeRestricted a mv:AdmissionPolicy ;
+    rdfs:label "Age Restricted"@en ;
+    rdfs:comment "Venue restricts entry based on minimum age requirements (e.g. 18+, 21+)."@en .
 
 # ==============================================================================
 # Classes: Location Hierarchy
@@ -341,11 +311,42 @@ mv:mostPopulousCity a owl:ObjectProperty ;
     rdfs:domain mv:Country ;
     rdfs:range mv:City .
 
-mv:hasVenueType a owl:ObjectProperty ;
-    rdfs:label "has venue type"@en ;
-    rdfs:comment "Relates a venue to its specific type or category."@en ;
+mv:performedAt a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "performed at"@en ;
+    rdfs:comment "Relates a music event to the venue where it takes place."@en ;
+    rdfs:domain mv:MusicEvent ;
+    rdfs:range mv:Venue .
+
+mv:amenityOf a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    owl:inverseOf mv:offersAmenity ;
+    rdfs:label "amenity of"@en ;
+    rdfs:comment "Relates an amenity to the venue that offers it."@en ;
+    rdfs:domain mv:Amenity ;
+    rdfs:range mv:Venue .
+
+mv:venueLocatedIn a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    owl:inverseOf mv:isLocatedIn ;
+    rdfs:label "venue located in"@en ;
+    rdfs:comment "Relates a location to the venues located within it."@en ;
+    rdfs:domain mv:Location ;
+    rdfs:range mv:Facility .
+
+mv:hostsEventType a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "hosts event type"@en ;
+    rdfs:comment "Relates a venue to the types of events or performances it regularly hosts."@en ;
     rdfs:domain mv:Venue ;
-    rdfs:range mv:VenueType .
+    rdfs:range mv:EventType .
+
+mv:hasAdmissionPolicy a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "has admission policy"@en ;
+    rdfs:comment "Relates a venue to its admission or age policy."@en ;
+    rdfs:domain mv:Venue ;
+    rdfs:range mv:AdmissionPolicy .
 
 mv:name a owl:DatatypeProperty ;
     rdfs:label "name"@en ;
@@ -366,6 +367,43 @@ mv:hasSeatingCapacity a owl:DatatypeProperty ;
 mv:hasSeating a owl:DatatypeProperty ;
     rdfs:label "has seating"@en ;
     rdfs:comment "Indicates whether a venue has seating available."@en ;
+    rdfs:domain mv:Venue ;
+    rdfs:range xsd:boolean .
+
+mv:eventDate a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "event date"@en ;
+    rdfs:comment "The date and time of a music event."@en ;
+    rdfs:domain mv:MusicEvent ;
+    rdfs:range xsd:dateTime .
+
+mv:latitude a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "latitude"@en ;
+    rdfs:comment "The WGS84 latitude of a venue or location."@en ;
+    rdfs:domain mv:Location ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf geo:lat .
+
+mv:longitude a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "longitude"@en ;
+    rdfs:comment "The WGS84 longitude of a venue or location."@en ;
+    rdfs:domain mv:Location ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf geo:long .
+
+mv:streetAddress a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "street address"@en ;
+    rdfs:comment "The street name and number of a facility, used to locate it within a city."@en ;
+    rdfs:domain mv:Facility ;
+    rdfs:range xsd:string .
+
+mv:isIconic a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <http://getexcited.com/music-venues> ;
+    rdfs:label "is iconic"@en ;
+    rdfs:comment "Indicates whether a venue is widely recognized as a landmark or iconic site in its city."@en ;
     rdfs:domain mv:Venue ;
     rdfs:range xsd:boolean .
 
@@ -461,10 +499,9 @@ mv:NewYorkCity a mv:City ;
 
 # -- New York City Venues -----------------------------------------------
 
-mv:MadisonSquareGarden a mv:Venue ;
+mv:MadisonSquareGarden a mv:Arena ;
     mv:name "Madison Square Garden"@en ;
     rdfs:comment "Iconic multi-purpose arena in Midtown Manhattan, one of the most famous entertainment venues in the world."@en ;
-    mv:hasVenueType mv:Arena ;
     mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 20789 ;
     mv:hasSeating true ;
@@ -474,10 +511,9 @@ mv:MadisonSquareGarden a mv:Venue ;
                      mv:Elevator ,
                      mv:WheelchairAccessible .
 
-mv:CarnegieHall a mv:Venue ;
+mv:CarnegieHall a mv:ConcertHall ;
     mv:name "Carnegie Hall"@en ;
     rdfs:comment "World-renowned concert hall in Midtown Manhattan, opened in 1891."@en ;
-    mv:hasVenueType mv:ConcertHall ;
     mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 2804 ;
     mv:hasSeating true ;
@@ -486,10 +522,9 @@ mv:CarnegieHall a mv:Venue ;
                      mv:AssistiveListeningDevice ,
                      mv:Bar .
 
-mv:RadioCityMusicHall a mv:Venue ;
+mv:RadioCityMusicHall a mv:ConcertHall ;
     mv:name "Radio City Music Hall"@en ;
     rdfs:comment "Historic entertainment venue in Rockefeller Center, known as the Showplace of the Nation."@en ;
-    mv:hasVenueType mv:ConcertHall ;
     mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 5960 ;
     mv:hasSeating true ;
@@ -499,10 +534,9 @@ mv:RadioCityMusicHall a mv:Venue ;
                      mv:WheelchairAccessible ,
                      mv:AssistiveListeningDevice .
 
-mv:BeaconTheatre a mv:Venue ;
+mv:BeaconTheatre a mv:ConcertHall ;
     mv:name "Beacon Theatre"@en ;
     rdfs:comment "Historic concert venue on the Upper West Side, a New York City landmark since 1929."@en ;
-    mv:hasVenueType mv:ConcertHall ;
     mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 2894 ;
     mv:hasSeating true ;
@@ -511,20 +545,18 @@ mv:BeaconTheatre a mv:Venue ;
                      mv:Elevator ,
                      mv:WheelchairAccessible .
 
-mv:BrooklynSteel a mv:Venue ;
+mv:BrooklynSteel a mv:MusicClub ;
     mv:name "Brooklyn Steel"@en ;
     rdfs:comment "Modern live music venue in East Williamsburg, Brooklyn, opened in 2017."@en ;
-    mv:hasVenueType mv:MusicClub ;
     mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 1800 ;
     mv:hasSeating false ;
     mv:offersAmenity mv:Bar ,
                      mv:WheelchairAccessible .
 
-mv:IrvingPlaza a mv:Venue ;
+mv:IrvingPlaza a mv:MusicClub ;
     mv:name "Irving Plaza"@en ;
     rdfs:comment "Historic music venue in Manhattan's Union Square neighborhood, opened in 1903."@en ;
-    mv:hasVenueType mv:MusicClub ;
     mv:isLocatedIn mv:NewYorkCity ;
     mv:hasSeatingCapacity 1000 ;
     mv:hasSeating false ;
@@ -548,10 +580,9 @@ mv:SantaClara a mv:City ;
 
 # -- California Venues -----------------------------------------------
 
-mv:TheFillmore a mv:Venue ;
+mv:TheFillmore a mv:Nightclub ;
     mv:name "The Fillmore"@en ;
     rdfs:comment "Legendary live music venue in San Francisco, known for its 1960s psychedelic rock history."@en ;
-    mv:hasVenueType mv:Nightclub ;
     mv:isLocatedIn mv:SanFrancisco ;
     mv:hasSeatingCapacity 1315 ;
     mv:hasSeating true ;
@@ -560,10 +591,9 @@ mv:TheFillmore a mv:Venue ;
                      mv:Restaurant ,
                      mv:GreenRoom .
 
-mv:GreekTheatre a mv:Venue ;
+mv:GreekTheatre a mv:Amphitheater ;
     mv:name "The Greek Theatre"@en ;
     rdfs:comment "Historic outdoor amphitheater in Berkeley, California, nestled in the hills above the UC Berkeley campus."@en ;
-    mv:hasVenueType mv:Amphitheater ;
     mv:isLocatedIn mv:Berkeley ;
     mv:hasSeatingCapacity 8500 ;
     mv:hasSeating true ;
@@ -572,10 +602,9 @@ mv:GreekTheatre a mv:Venue ;
                      mv:ParkingArea ,
                      mv:GreenRoom .
 
-mv:LevisStadium a mv:Venue ;
+mv:LevisStadium a mv:Stadium ;
     mv:name "Levi's Stadium"@en ;
     rdfs:comment "Multi-purpose stadium in Santa Clara, California, home of the San Francisco 49ers and major concert events."@en ;
-    mv:hasVenueType mv:Stadium ;
     mv:isLocatedIn mv:SantaClara ;
     mv:hasSeatingCapacity 68500 ;
     mv:hasSeating true ;
@@ -622,10 +651,9 @@ mv:MexicoCity a mv:City ;
     mv:locatedInCountry mv:Mexico .
 
 # -- Mexico City Venues -----------------------------------------------
-mv:AuditorioNacional a mv:Venue ;
+mv:AuditorioNacional a mv:ConcertHall ;
     mv:name "Auditorio Nacional"@en ;
     rdfs:comment "Major indoor venue in Mexico City, widely used for concerts and international tours."@en ;
-    mv:hasVenueType mv:ConcertHall ;
     mv:isLocatedIn mv:MexicoCity ;
     mv:hasSeatingCapacity 10000 ;
     mv:hasSeating true ;
@@ -635,10 +663,9 @@ mv:AuditorioNacional a mv:Venue ;
                      mv:WheelchairAccessible ,
                      mv:AssistiveListeningDevice .
 
-mv:ForoSol a mv:Venue ;
+mv:ForoSol a mv:Stadium ;
     mv:name "Foro Sol"@en ;
     rdfs:comment "Large concert venue in Mexico City used for stadium-scale live events and festivals."@en ;
-    mv:hasVenueType mv:Stadium ;
     mv:isLocatedIn mv:MexicoCity ;
     mv:hasSeatingCapacity 65000 ;
     mv:hasSeating true ;
@@ -647,10 +674,9 @@ mv:ForoSol a mv:Venue ;
                      mv:Restaurant ,
                      mv:WheelchairAccessible .
 
-mv:PalacioDeLosDeportes a mv:Venue ;
+mv:PalacioDeLosDeportes a mv:Arena ;
     mv:name "Palacio de los Deportes"@en ;
     rdfs:comment "Iconic dome arena in Mexico City used for concerts and multi-purpose events."@en ;
-    mv:hasVenueType mv:Arena ;
     mv:isLocatedIn mv:MexicoCity ;
     mv:hasSeatingCapacity 20000 ;
     mv:hasSeating true ;
@@ -658,10 +684,9 @@ mv:PalacioDeLosDeportes a mv:Venue ;
                      mv:Elevator ,
                      mv:WheelchairAccessible .
 
-mv:PepsiCenterWTC a mv:Venue ;
+mv:PepsiCenterWTC a mv:MusicClub ;
     mv:name "Pepsi Center WTC"@en ;
     rdfs:comment "Indoor concert hall in Mexico City with flexible standing and seated configurations."@en ;
-    mv:hasVenueType mv:MusicClub ;
     mv:isLocatedIn mv:MexicoCity ;
     mv:hasSeatingCapacity 8000 ;
     mv:hasSeating false ;
@@ -703,7 +728,7 @@ mv:Argentina a mv:Country , skos:Concept ;
 
 mv:BuenosAires a mv:City ;
     rdfs:label "Buenos Aires"@en ;
-    rdfs:comment "Capital and most populous city, world capital of tango with legendary venues like Teatro Colón."@en ;
+    rdfs:comment "Capital and most populous city, world capital of tango with legendary venues like Teatro Colon."@en ;
     mv:locatedInCountry mv:Argentina .
 
 mv:Colombia a mv:Country , skos:Concept ;
@@ -717,7 +742,7 @@ mv:Colombia a mv:Country , skos:Concept ;
     skos:broader mv:SouthAmerica .
 
 mv:Bogota a mv:City ;
-    rdfs:label "Bogotá"@en ;
+    rdfs:label "Bogota"@en ;
     rdfs:comment "Capital and most populous city, home to a growing salsa, cumbia, and electronic music scene."@en ;
     mv:locatedInCountry mv:Colombia .
 
@@ -937,18 +962,29 @@ mv:Auckland a mv:City ;
 # ==============================================================================
 # Individuals: Amenities
 # ==============================================================================
-# OWL type declarations for amenity concepts referenced by venue instances.
-# SKOS labels, definitions, and hierarchy are in music_venue_vocabulary.ttl.
 
-mv:AccessibilityFeature a mv:Amenity .
-mv:Elevator a mv:Amenity .
-mv:AssistiveListeningDevice a mv:Amenity .
-mv:WheelchairAccessible a mv:Amenity .
+mv:Elevator a mv:AccessibilityFeature ;
+    rdfs:label "Elevator"@en .
+
+mv:AssistiveListeningDevice a mv:AccessibilityFeature ;
+    rdfs:label "Assistive Listening Device"@en .
+
+mv:WheelchairAccessible a mv:AccessibilityFeature ;
+    rdfs:label "Wheelchair Accessible"@en .
 
 mv:FoodAndDrink a mv:EatingOrDrinkingEstablishment ;
+    rdfs:label "Food and Drink"@en ;
     skos:closeMatch mv:EatingOrDrinkingEstablishment .
-mv:Bar a mv:EatingOrDrinkingEstablishment .
-mv:ConcessionStand a mv:EatingOrDrinkingEstablishment .
-mv:Restaurant a mv:EatingOrDrinkingEstablishment .
 
-mv:GreenRoom a mv:Room .
+mv:Bar a mv:EatingOrDrinkingEstablishment ;
+    rdfs:label "Bar"@en .
+
+mv:ConcessionStand a mv:EatingOrDrinkingEstablishment ;
+    rdfs:label "Concession Stand"@en .
+
+mv:Restaurant a mv:EatingOrDrinkingEstablishment ;
+    rdfs:label "Restaurant"@en .
+
+mv:GreenRoom a mv:Room ;
+    rdfs:label "Green Room"@en .
+

@@ -1,19 +1,17 @@
 PREFIX mv:   <http://getexcited.com/music-venues#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?venue ?name ?typeName ?cityName ?capacity
 WHERE {
-    ?venue  a                    mv:Venue ;
-            mv:name              ?name ;
-            mv:hasVenueType      ?type ;
-            mv:isLocatedIn       ?city ;
+    ?type   rdfs:subClassOf  mv:IndoorVenue .
+    ?venue  a                ?type ;
+            mv:name          ?name ;
+            mv:isLocatedIn   ?city ;
             mv:hasSeatingCapacity ?capacity .
 
     ?city   mv:locatedInCountry  mv:UnitedStates ;
             rdfs:label           ?cityName .
 
-    ?type   skos:broader         mv:IndoorVenue ;
-            skos:prefLabel       ?typeName .
+    ?type   rdfs:label           ?typeName .
 }
 ORDER BY ?cityName ?name

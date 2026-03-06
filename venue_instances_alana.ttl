@@ -3,49 +3,42 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
-@prefix ex:   <http://example.org/musicvenue/> .
-@prefix get:  <http://getexcited.com/MusicVenueVocabulary#> .
 @prefix mv:   <http://getexcited.com/music-venues#> .
 
 
 #2. CALIFORNIA VENUE INSTANCES
 
-mv:the-fillmore rdf:type mv:Venue ;
+mv:the-fillmore a mv:Nightclub ;
     mv:locatedInContinent mv:NorthAmerica ;
     mv:locatedInCountry mv:UnitedStates ;
-    mv:offersAmenity get:Bar ;
-    mv:offersAmenity get:WheelchairAccessible ;
-    mv:offersAmenity get:Restaurant ;
-    mv:offersAmenity get:GreenRoom ;
-    mv:hasSeating "yes" ;
-    mv:hasSeatingCapacity "1315" ;
-    mv:name "The Fillmore" ;
-    mv:hasVenueType get:Nightclub .
+    mv:offersAmenity mv:Bar ;
+    mv:offersAmenity mv:WheelchairAccessible ;
+    mv:offersAmenity mv:Restaurant ;
+    mv:offersAmenity mv:GreenRoom ;
+    mv:hasSeating true ;
+    mv:hasSeatingCapacity 1315 ;
+    mv:name "The Fillmore" .
 
-mv:greek-theatre rdf:type mv:Venue ;
+mv:greek-theatre a mv:Amphitheater ;
     mv:locatedInContinent mv:NorthAmerica ;
     mv:locatedInCountry mv:UnitedStates ;
-    mv:offersAmenity get:Bar ;
-    mv:offersAmenity get:WheelchairAccessible ;
-    mv:offersAmenity get:ParkingArea ;
-    mv:offersAmenity get:GreenRoom ;
-    mv:hasSeating "yes" ;
-    mv:hasSeatingCapacity "8500" ;
-    mv:name "The Greek Theatre" ;
-    mv:hasVenueType get:Amphitheater .
+    mv:offersAmenity mv:Bar ;
+    mv:offersAmenity mv:WheelchairAccessible ;
+    mv:offersAmenity mv:ParkingArea ;
+    mv:offersAmenity mv:GreenRoom ;
+    mv:hasSeating true ;
+    mv:hasSeatingCapacity 8500 ;
+    mv:name "The Greek Theatre" .
 
-mv:levis-stadium rdf:type mv:Venue ;
+mv:levis-stadium a mv:Stadium ;
     mv:locatedInContinent mv:NorthAmerica ;
     mv:locatedInCountry mv:UnitedStates ;
-    mv:offersAmenity get:Bar ;
-    mv:offersAmenity get:WheelchairAccessible ;
-    mv:offersAmenity get:Restaurant ;
-    mv:offersAmenity get:ConcessionStand ;
-    mv:offersAmenity get:ParkingArea ;
-    mv:offersAmenity get:GreenRoom ;
-    mv:hasSeating "yes" ;
-    mv:hasSeatingCapacity "68500" ;
-    mv:name "Levi's Stadium" ;
-    mv:hasVenueType get:Stadium .
-
-
+    mv:offersAmenity mv:Bar ;
+    mv:offersAmenity mv:WheelchairAccessible ;
+    mv:offersAmenity mv:Restaurant ;
+    mv:offersAmenity mv:ConcessionStand ;
+    mv:offersAmenity mv:ParkingArea ;
+    mv:offersAmenity mv:GreenRoom ;
+    mv:hasSeating true ;
+    mv:hasSeatingCapacity 68500 ;
+    mv:name "Levi's Stadium" .
