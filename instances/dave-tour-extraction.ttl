@@ -1,0 +1,749 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix mv:    <http://getexcited.com/music-venues#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix oa:    <http://www.w3.org/ns/oa#> .
+@prefix venue: <http://getexcited.com/music-venues/data/venue/> .
+@prefix city:  <http://getexcited.com/music-venues/data/location/city/> .
+@prefix country: <http://getexcited.com/music-venues/data/location/country/> .
+@prefix event: <http://getexcited.com/music-venues/data/event/> .
+@prefix etype: <http://getexcited.com/music-venues/data/event-type/> .
+@prefix amenity: <http://getexcited.com/music-venues/data/amenity/> .
+@prefix admpol: <http://getexcited.com/music-venues/data/admission-policy/> .
+@prefix state: <http://getexcited.com/music-venues/data/location/state/> .
+@prefix extract: <http://getexcited.com/music-venues/data/extraction/> .
+
+# ==============================================================================
+# Extraction Activity (PROV-O)
+# ==============================================================================
+
+extract:activity-dave-tour-2026
+    a prov:Activity ;
+    rdfs:label "NER + extraction from Ticketmaster Dave artist page"@en ;
+    prov:startedAtTime "2026-03-06T00:00:00Z"^^xsd:dateTime ;
+    prov:used <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+    prov:wasAssociatedWith extract:agent-claude .
+
+extract:agent-claude
+    a prov:SoftwareAgent ;
+    rdfs:label "Claude (Music Venue Ontology Extractor)"@en .
+
+# ==============================================================================
+# Source Document
+# ==============================================================================
+
+<https://www.ticketmaster.com/dave-tickets/artist/2334478>
+    a prov:Entity ;
+    rdfs:label "Ticketmaster – Dave Tickets, 2025-2026 Concert Tour Dates"@en .
+
+# ==============================================================================
+# Countries — canonical URIs (linked to existing ontology individuals)
+# ==============================================================================
+
+# Already in ontology — reuse mv: URIs
+# mv:UnitedStates, mv:Germany, mv:France, mv:Canada
+
+# New countries not in ontology
+country:belgium a mv:Country ;
+    rdfs:label "Belgium"@en ;
+    mv:locatedInContinent mv:Europe ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7140 ; oa:end 7147 ] .
+
+country:netherlands a mv:Country ;
+    rdfs:label "Netherlands"@en ;
+    mv:locatedInContinent mv:Europe ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7670 ; oa:end 7681 ] .
+
+# ==============================================================================
+# Cities — canonical URIs
+# ==============================================================================
+
+# --- Linked to existing ontology individuals ---
+# mv:WashingtonDC  ("Washington, DC" in text)
+# mv:NewYorkCity   ("New York" in reviews)
+# mv:Berlin        ("Berlin, Germany")
+# mv:Paris         ("Paris, 75, France")
+# mv:Toronto       ("Toronto" in reviews)
+
+# --- New states / provinces ---
+
+state:united-states\/california a mv:State ;
+    rdfs:label "California"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/colorado a mv:State ;
+    rdfs:label "Colorado"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/texas a mv:State ;
+    rdfs:label "Texas"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/georgia a mv:State ;
+    rdfs:label "Georgia"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/pennsylvania a mv:State ;
+    rdfs:label "Pennsylvania"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/illinois a mv:State ;
+    rdfs:label "Illinois"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/massachusetts a mv:State ;
+    rdfs:label "Massachusetts"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/new-york a mv:State ;
+    rdfs:label "New York"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:united-states\/maryland a mv:State ;
+    rdfs:label "Maryland"@en ;
+    mv:locatedInCountry mv:UnitedStates .
+
+state:canada\/british-columbia a mv:State ;
+    rdfs:label "British Columbia"@en ;
+    mv:locatedInCountry mv:Canada .
+
+# --- New cities ---
+
+city:united-states\/oakland a mv:City ;
+    rdfs:label "Oakland"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/california ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 1858 ; oa:end 1869 ] .
+
+city:united-states\/hollywood a mv:City ;
+    rdfs:label "Hollywood"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/california ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2188 ; oa:end 2201 ] .
+
+city:united-states\/denver a mv:City ;
+    rdfs:label "Denver"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/colorado ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2468 ; oa:end 2478 ] .
+
+city:united-states\/dallas a mv:City ;
+    rdfs:label "Dallas"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/texas ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2728 ; oa:end 2738 ] .
+
+city:united-states\/houston a mv:City ;
+    rdfs:label "Houston"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/texas ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 3018 ; oa:end 3029 ] .
+
+city:united-states\/atlanta a mv:City ;
+    rdfs:label "Atlanta"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/georgia ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 3478 ; oa:end 3489 ] .
+
+city:united-states\/philadelphia a mv:City ;
+    rdfs:label "Philadelphia"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/pennsylvania ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4038 ; oa:end 4054 ] .
+
+city:united-states\/chicago a mv:City ;
+    rdfs:label "Chicago"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/illinois ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4928 ; oa:end 4939 ] .
+
+city:united-states\/boston a mv:City ;
+    rdfs:label "Boston"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/massachusetts ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 5198 ; oa:end 5208 ] .
+
+city:united-states\/brooklyn a mv:City ;
+    rdfs:label "Brooklyn"@en ;
+    rdfs:comment "Borough of New York City, treated as a distinct city on Ticketmaster listings."@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/new-york ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 5668 ; oa:end 5680 ] .
+
+city:united-states\/silver-spring a mv:City ;
+    rdfs:label "Silver Spring"@en ;
+    mv:locatedInCountry mv:UnitedStates ;
+    mv:locatedInState state:united-states\/maryland ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 10148 ; oa:end 10161 ] .
+
+city:germany\/munich a mv:City ;
+    rdfs:label "Munich"@en ;
+    mv:locatedInCountry mv:Germany ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 6588 ; oa:end 6603 ] .
+
+city:belgium\/brussels a mv:City ;
+    rdfs:label "Brussels"@en ;
+    mv:locatedInCountry country:belgium ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7128 ; oa:end 7145 ] .
+
+city:germany\/dusseldorf a mv:City ;
+    rdfs:label "Düsseldorf"@en ;
+    mv:locatedInCountry mv:Germany ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7378 ; oa:end 7397 ] .
+
+city:netherlands\/amsterdam a mv:City ;
+    rdfs:label "Amsterdam"@en ;
+    mv:locatedInCountry country:netherlands ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7658 ; oa:end 7680 ] .
+
+city:canada\/vancouver a mv:City ;
+    rdfs:label "Vancouver"@en ;
+    mv:locatedInCountry mv:Canada ;
+    mv:locatedInState state:canada\/british-columbia ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 10858 ; oa:end 10867 ] .
+
+# ==============================================================================
+# Event Type — canonical URI
+# ==============================================================================
+
+etype:concert
+    owl:sameAs mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 1588 ; oa:end 1595 ] .
+
+# ==============================================================================
+# Admission Policy
+# ==============================================================================
+
+admpol:age-restricted-21-plus a mv:AdmissionPolicy ;
+    rdfs:label "21+"@en ;
+    rdfs:comment "Age-restricted admission requiring attendees to be 21 or older."@en ;
+    owl:sameAs mv:AgeRestricted ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 5548 ; oa:end 5551 ] .
+
+# ==============================================================================
+# Amenities (add-on services mentioned in listings)
+# ==============================================================================
+
+amenity:parking a mv:ParkingArea ;
+    rdfs:label "Parking"@en ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2280 ; oa:end 2287 ] .
+
+amenity:room\/vip-lounge a mv:Room ;
+    rdfs:label "VIP Lounge"@en ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4340 ; oa:end 4357 ] .
+
+amenity:room\/telegraph-room a mv:Room ;
+    rdfs:label "Telegraph Room"@en ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2038 ; oa:end 2052 ] .
+
+# ==============================================================================
+# Venues — US Tour Leg
+# ==============================================================================
+
+venue:fox-theater-oakland a mv:IndoorVenue ;
+    mv:name "Fox Theater - Oakland" ;
+    mv:isLocatedIn city:united-states\/oakland ;
+    mv:hostsEventType mv:Concert ;
+    mv:offersAmenity amenity:room\/telegraph-room ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 1884 ; oa:end 1905 ] .
+
+venue:hollywood-palladium a mv:IndoorVenue ;
+    mv:name "Hollywood Palladium" ;
+    mv:isLocatedIn city:united-states\/hollywood ;
+    mv:hostsEventType mv:Concert ;
+    mv:offersAmenity amenity:parking ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2218 ; oa:end 2237 ] .
+
+venue:summit-music-hall a mv:MusicClub ;
+    mv:name "Summit Music Hall" ;
+    mv:isLocatedIn city:united-states\/denver ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2492 ; oa:end 2509 ] .
+
+venue:south-side-ballroom a mv:IndoorVenue ;
+    mv:name "South Side Ballroom" ;
+    mv:isLocatedIn city:united-states\/dallas ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2758 ; oa:end 2777 ] .
+
+venue:bayou-music-center a mv:ConcertHall ;
+    mv:name "Bayou Music Center" ;
+    mv:isLocatedIn city:united-states\/houston ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 3058 ; oa:end 3076 ] .
+
+venue:coca-cola-roxy a mv:IndoorVenue ;
+    mv:name "Coca-Cola Roxy" ;
+    mv:isLocatedIn city:united-states\/atlanta ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 3518 ; oa:end 3532 ] .
+
+venue:the-fillmore-philadelphia a mv:Nightclub ;
+    mv:name "The Fillmore Philadelphia" ;
+    mv:isLocatedIn city:united-states\/philadelphia ;
+    mv:hostsEventType mv:Concert ;
+    mv:offersAmenity amenity:room\/vip-lounge ,
+                     amenity:parking ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4078 ; oa:end 4103 ] .
+
+venue:the-anthem a mv:ConcertHall ;
+    mv:name "The Anthem" ;
+    mv:isLocatedIn mv:WashingtonDC ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4668 ; oa:end 4677 ] .
+
+venue:the-salt-shed-indoors a mv:IndoorVenue ;
+    mv:name "The Salt Shed Indoors (Shed)" ;
+    mv:isLocatedIn city:united-states\/chicago ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4958 ; oa:end 4985 ] .
+
+venue:mgm-music-hall-at-fenway a mv:ConcertHall ;
+    mv:name "MGM Music Hall at Fenway" ;
+    mv:isLocatedIn city:united-states\/boston ;
+    mv:hostsEventType mv:Concert ;
+    mv:hasAdmissionPolicy admpol:age-restricted-21-plus ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 5228 ; oa:end 5252 ] .
+
+venue:brooklyn-paramount a mv:ConcertHall ;
+    mv:name "Brooklyn Paramount" ;
+    mv:isLocatedIn city:united-states\/brooklyn ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 5698 ; oa:end 5716 ] .
+
+# --- Entity-linked to existing ontology individual ---
+mv:IrvingPlaza
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 9728 ; oa:end 9740 ] .
+
+# ==============================================================================
+# Venues — European Tour Leg
+# ==============================================================================
+
+venue:olympiahalle a mv:Arena ;
+    mv:name "Olympiahalle" ;
+    mv:isLocatedIn city:germany\/munich ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 6618 ; oa:end 6630 ] .
+
+venue:accor-arena a mv:Arena ;
+    mv:name "ACCOR ARENA" ;
+    mv:isLocatedIn mv:Paris ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 6878 ; oa:end 6889 ] .
+
+venue:ing-arena a mv:Arena ;
+    mv:name "ING ARENA" ;
+    mv:isLocatedIn city:belgium\/brussels ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7158 ; oa:end 7167 ] .
+
+venue:psd-bank-dome a mv:Arena ;
+    mv:name "PSD BANK DOME" ;
+    mv:isLocatedIn city:germany\/dusseldorf ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7408 ; oa:end 7421 ] .
+
+venue:ziggo-dome a mv:Arena ;
+    mv:name "Ziggo Dome" ;
+    mv:isLocatedIn city:netherlands\/amsterdam ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7688 ; oa:end 7698 ] .
+
+venue:ziggo-dome-club a mv:MusicClub ;
+    mv:name "Ziggo Dome Club" ;
+    mv:isLocatedIn city:netherlands\/amsterdam ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7998 ; oa:end 8013 ] .
+
+venue:uber-arena a mv:Arena ;
+    mv:name "Uber Arena" ;
+    mv:isLocatedIn mv:Berlin ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 8348 ; oa:end 8358 ] .
+
+# ==============================================================================
+# Venues — from Reviews (entity-linked where possible)
+# ==============================================================================
+
+venue:the-fillmore-silver-spring a mv:Nightclub ;
+    mv:name "The Fillmore Silver Spring" ;
+    mv:isLocatedIn city:united-states\/silver-spring ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 10148 ; oa:end 10174 ] .
+
+venue:commodore-ballroom a mv:IndoorVenue ;
+    mv:name "Commodore Ballroom" ;
+    mv:isLocatedIn city:canada\/vancouver ;
+    mv:hostsEventType mv:Concert ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 10878 ; oa:end 10896 ] .
+
+venue:history-toronto a mv:IndoorVenue ;
+    mv:name "History" ;
+    mv:isLocatedIn mv:Toronto ;
+    mv:hostsEventType mv:Concert ;
+    rdfs:comment "Entity-linking note: 'History' is a live music venue in Toronto. Low confidence due to ambiguous name."@en ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 9308 ; oa:end 9315 ] .
+
+# ==============================================================================
+# Music Events — US Tour Leg
+# ==============================================================================
+
+event:dave-the-boy-who-played-the-harp-tour-oakland-2026-03-31 a mv:MusicEvent ;
+    rdfs:label "DAVE - The Boy Who Played the Harp Tour (Oakland)"@en ;
+    mv:performedAt venue:fox-theater-oakland ;
+    mv:eventDate "2026-03-31T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 1858 ; oa:end 1960 ] .
+
+event:dave-hollywood-palladium-2026-04-03 a mv:MusicEvent ;
+    rdfs:label "Dave (Hollywood Palladium)"@en ;
+    mv:performedAt venue:hollywood-palladium ;
+    mv:eventDate "2026-04-03T19:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2188 ; oa:end 2260 ] .
+
+event:dave-summit-music-hall-2026-04-07 a mv:MusicEvent ;
+    rdfs:label "Dave (Summit Music Hall)"@en ;
+    mv:performedAt venue:summit-music-hall ;
+    mv:eventDate "2026-04-07T19:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2468 ; oa:end 2530 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-dallas-2026-04-10 a mv:MusicEvent ;
+    rdfs:label "DAVE - The Boy Who Played the Harp Tour (Dallas)"@en ;
+    mv:performedAt venue:south-side-ballroom ;
+    mv:eventDate "2026-04-10T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 2728 ; oa:end 2830 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-houston-2026-04-11 a mv:MusicEvent ;
+    rdfs:label "DAVE - The Boy Who Played the Harp Tour (Houston)"@en ;
+    mv:performedAt venue:bayou-music-center ;
+    mv:eventDate "2026-04-11T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 3018 ; oa:end 3130 ] .
+
+event:dave-coca-cola-roxy-2026-04-14 a mv:MusicEvent ;
+    rdfs:label "Dave (Coca-Cola Roxy)"@en ;
+    mv:performedAt venue:coca-cola-roxy ;
+    mv:eventDate "2026-04-14T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 3478 ; oa:end 3550 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-philadelphia-2026-04-17 a mv:MusicEvent ;
+    rdfs:label "DAVE - The Boy Who Played the Harp Tour (Philadelphia)"@en ;
+    mv:performedAt venue:the-fillmore-philadelphia ;
+    mv:eventDate "2026-04-17T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4038 ; oa:end 4150 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-washington-2026-04-18 a mv:MusicEvent ;
+    rdfs:label "DAVE - The Boy Who Played the Harp Tour (Washington, DC)"@en ;
+    mv:performedAt venue:the-anthem ;
+    mv:eventDate "2026-04-18T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4638 ; oa:end 4740 ] .
+
+event:dave-the-salt-shed-2026-04-20 a mv:MusicEvent ;
+    rdfs:label "DAVE (The Salt Shed Indoors)"@en ;
+    mv:performedAt venue:the-salt-shed-indoors ;
+    mv:eventDate "2026-04-20T19:30:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 4928 ; oa:end 5010 ] .
+
+event:dave-mgm-music-hall-2026-04-27 a mv:MusicEvent ;
+    rdfs:label "Dave (MGM Music Hall at Fenway)"@en ;
+    mv:performedAt venue:mgm-music-hall-at-fenway ;
+    mv:eventDate "2026-04-27T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 5198 ; oa:end 5280 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-brooklyn-2026-04-30 a mv:MusicEvent ;
+    rdfs:label "DAVE - The Boy Who Played the Harp Tour (Brooklyn, Apr 30)"@en ;
+    mv:performedAt venue:brooklyn-paramount ;
+    mv:eventDate "2026-04-30T19:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 5668 ; oa:end 5770 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-brooklyn-2026-05-01 a mv:MusicEvent ;
+    rdfs:label "DAVE - The Boy Who Played the Harp Tour (Brooklyn, May 1)"@en ;
+    mv:performedAt venue:brooklyn-paramount ;
+    mv:eventDate "2026-05-01T19:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 6088 ; oa:end 6190 ] .
+
+# ==============================================================================
+# Music Events — European Tour Leg
+# ==============================================================================
+
+event:dave-the-boy-who-played-the-harp-tour-munich-2026-02-02 a mv:MusicEvent ;
+    rdfs:label "Dave - The Boy Who Played the Harp Tour (Munich)"@en ;
+    mv:performedAt venue:olympiahalle ;
+    mv:eventDate "2026-02-02T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 6588 ; oa:end 6680 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-paris-2026-02-04 a mv:MusicEvent ;
+    rdfs:label "Dave - The Boy Who Played the Harp Tour (Paris)"@en ;
+    mv:performedAt venue:accor-arena ;
+    mv:eventDate "2026-02-04T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 6848 ; oa:end 6950 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-brussels-2026-02-06 a mv:MusicEvent ;
+    rdfs:label "Dave – The Boy Who Played the Harp Tour (Brussels)"@en ;
+    mv:performedAt venue:ing-arena ;
+    mv:eventDate "2026-02-06T18:30:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7128 ; oa:end 7220 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-dusseldorf-2026-02-08 a mv:MusicEvent ;
+    rdfs:label "Dave - The Boy Who Played the Harp Tour (Düsseldorf)"@en ;
+    mv:performedAt venue:psd-bank-dome ;
+    mv:eventDate "2026-02-08T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7378 ; oa:end 7470 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-amsterdam-2026-02-10 a mv:MusicEvent ;
+    rdfs:label "Dave - The Boy Who Played the Harp Tour (Amsterdam)"@en ;
+    mv:performedAt venue:ziggo-dome ;
+    mv:eventDate "2026-02-10T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 7658 ; oa:end 7750 ] .
+
+event:dave-the-boy-who-played-the-harp-tour-berlin-2026-02-13 a mv:MusicEvent ;
+    rdfs:label "Dave - The Boy Who Played the Harp Tour (Berlin)"@en ;
+    mv:performedAt venue:uber-arena ;
+    mv:eventDate "2026-02-13T20:00:00"^^xsd:dateTime ;
+    prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+    prov:wasDerivedFrom [ a oa:TextPositionSelector ;
+        oa:hasSource <https://www.ticketmaster.com/dave-tickets/artist/2334478> ;
+        oa:start 8318 ; oa:end 8410 ] .
+
+# ==============================================================================
+# Entity Linking Notes
+# ==============================================================================
+
+# Surface forms "Dave", "DAVE", "Santan Dave" all refer to the same artist.
+# The ontology has no Artist/Performer class, so this cannot be represented.
+# See GAPS section below.
+
+# "Washington, DC" → linked to mv:WashingtonDC (ontology individual)
+# "Berlin, Germany" → linked to mv:Berlin (ontology individual)
+# "Paris, 75, France" → linked to mv:Paris (ontology individual)
+# "Toronto" (reviews) → linked to mv:Toronto (ontology individual)
+# "New York" (reviews) → linked to mv:NewYorkCity (ontology individual)
+# "Irving Plaza" (reviews) → linked to mv:IrvingPlaza (ontology individual)
+# "Brooklyn, NY" → minted as new city (borough vs. city ambiguity noted)
+
+# "The Fillmore Philadelphia" and "The Fillmore Silver Spring" are
+#   distinct venues in the Live Nation "Fillmore" family. They are NOT
+#   the same entity as mv:TheFillmore (San Francisco). Separate URIs minted.
+
+# "Ziggo Dome" and "Ziggo Dome Club" appear co-located but are listed
+#   as separate Ticketmaster venues; treated as distinct entities.
+
+# "History - Toronto" (from reviews): resolved to venue:history-toronto.
+#   Ambiguous name — flagged for human review.
+
+# ==============================================================================
+# GAPS — things the text describes but the ontology cannot represent
+# ==============================================================================
+
+# 1. ARTIST / PERFORMER — "Dave" (British rapper, full name David Orobosa
+#    Omoregie, also known as "Santan Dave") is the performing artist for
+#    every event. The ontology has no class for artists or performers.
+#    Recommended addition: mv:Artist or mv:Performer with a property
+#    mv:performedBy (domain mv:MusicEvent, range mv:Artist).
+
+# 2. TOUR — "The Boy Who Played the Harp Tour" is a named concert tour
+#    grouping multiple MusicEvents. The ontology has no Tour class.
+#    Recommended addition: mv:Tour with mv:hasTourDate linking to mv:MusicEvent.
+
+# 3. GENRE — "Hip-Hop/Rap" is listed as the artist's genre classification.
+#    The ontology has no Genre class or property.
+
+# 4. TICKET / PRICING — Presale status, ticket links, and add-on packages
+#    (Fast Lane Access, Coat Check, Pre-Show Pass) are ticketing concepts
+#    not representable in the current ontology.
+
+# 5. COUNTRIES: Belgium and Netherlands — not present in the ontology as
+#    individuals. Minted as new entities above; should be added to the
+#    ontology's country roster with SKOS broader/narrower links to mv:Europe.
+
+# 6. ADD-ON SERVICES vs AMENITIES — "Fast Lane Access", "Coat Check",
+#    "Pre-Show Pass", "Rooftop Pre-Show Access" are ticketed add-on
+#    services, not permanent venue amenities. The ontology's mv:Amenity
+#    class does not cleanly distinguish between permanent facilities and
+#    per-event purchasable services.

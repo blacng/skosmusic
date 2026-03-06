@@ -266,6 +266,11 @@ mv:Country a owl:Class ;
     rdfs:label "Country"@en ;
     rdfs:comment "A country where music venues are located."@en .
 
+mv:State a owl:Class ;
+    rdfs:subClassOf mv:Location ;
+    rdfs:label "State"@en ;
+    rdfs:comment "A state, province, or administrative region within a country."@en .
+
 mv:City a owl:Class ;
     rdfs:subClassOf mv:Location ;
     rdfs:label "City"@en ;
@@ -295,9 +300,15 @@ mv:locatedInContinent a owl:ObjectProperty ;
 
 mv:locatedInCountry a owl:ObjectProperty ;
     rdfs:label "located in country"@en ;
-    rdfs:comment "Relates a city to the country it belongs to."@en ;
-    rdfs:domain mv:City ;
+    rdfs:comment "Relates a city or state to the country it belongs to."@en ;
+    rdfs:domain mv:Location ;
     rdfs:range mv:Country .
+
+mv:locatedInState a owl:ObjectProperty ;
+    rdfs:label "located in state"@en ;
+    rdfs:comment "Relates a city to the state, province, or region it belongs to."@en ;
+    rdfs:domain mv:City ;
+    rdfs:range mv:State .
 
 mv:capitalCity a owl:ObjectProperty ;
     rdfs:label "capital city"@en ;
