@@ -1,0 +1,15 @@
+# Cities and their states (US venues only)
+PREFIX mv:    <http://getexcited.com/music-venues#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?cityLabel ?stateLabel ?venueName
+WHERE {
+  ?city a mv:City ;
+        rdfs:label ?cityLabel ;
+        mv:locatedInState ?state ;
+        mv:locatedInCountry mv:UnitedStates .
+  ?state rdfs:label ?stateLabel .
+  ?venue mv:isLocatedIn ?city ;
+         mv:name ?venueName .
+}
+ORDER BY ?stateLabel ?cityLabel

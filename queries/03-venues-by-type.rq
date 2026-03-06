@@ -1,0 +1,12 @@
+# Venues by type (Arena, ConcertHall, Nightclub, etc.)
+PREFIX mv:   <http://getexcited.com/music-venues#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?venueName ?venueType
+WHERE {
+  ?venue a ?venueType ;
+         mv:name ?venueName .
+  ?venueType rdfs:subClassOf* mv:Venue .
+  FILTER(?venueType != mv:Venue)
+}
+ORDER BY ?venueType ?venueName

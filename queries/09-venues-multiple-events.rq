@@ -1,0 +1,12 @@
+# Venues with multiple events (repeat dates at the same venue)
+PREFIX mv: <http://getexcited.com/music-venues#>
+
+SELECT ?venueName (COUNT(?event) AS ?showCount)
+WHERE {
+  ?event a mv:MusicEvent ;
+         mv:performedAt ?venue .
+  ?venue mv:name ?venueName .
+}
+GROUP BY ?venueName
+HAVING (COUNT(?event) > 1)
+ORDER BY DESC(?showCount)

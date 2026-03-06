@@ -1,0 +1,12 @@
+# Venues that offer specific amenities
+PREFIX mv:   <http://getexcited.com/music-venues#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?venueName (GROUP_CONCAT(?amenityLabel; separator=", ") AS ?amenities)
+WHERE {
+  ?venue mv:name ?venueName ;
+         mv:offersAmenity ?amenity .
+  ?amenity rdfs:label ?amenityLabel .
+}
+GROUP BY ?venueName
+ORDER BY ?venueName

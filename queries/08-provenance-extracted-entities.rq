@@ -1,0 +1,17 @@
+# Provenance — all entities extracted from the source
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX oa:      <http://www.w3.org/ns/oa#>
+PREFIX mv:      <http://getexcited.com/music-venues#>
+PREFIX extract: <http://getexcited.com/music-venues/data/extraction/>
+
+SELECT ?entity ?label ?start ?end
+WHERE {
+  ?entity prov:wasGeneratedBy extract:activity-dave-tour-2026 ;
+          prov:wasDerivedFrom ?selector .
+  ?selector oa:start ?start ;
+            oa:end ?end .
+  OPTIONAL { ?entity rdfs:label ?label }
+  OPTIONAL { ?entity mv:name ?label }
+}
+ORDER BY ?start

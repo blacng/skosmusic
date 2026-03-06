@@ -1,0 +1,16 @@
+# All venues in the United States
+PREFIX mv:      <http://getexcited.com/music-venues#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX country: <http://getexcited.com/music-venues/data/location/country/>
+
+SELECT ?venueName ?cityLabel
+WHERE {
+  ?venue mv:name ?venueName ;
+         mv:isLocatedIn ?city .
+  ?city rdfs:label ?cityLabel .
+  { ?city mv:locatedInCountry mv:UnitedStates }
+  UNION
+  { ?venue mv:isLocatedIn ?ontCity .
+    ?ontCity mv:locatedInCountry mv:UnitedStates }
+}
+ORDER BY ?cityLabel

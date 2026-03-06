@@ -1,0 +1,14 @@
+# European arenas only
+PREFIX mv:   <http://getexcited.com/music-venues#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?venueName ?cityLabel ?countryLabel
+WHERE {
+  ?venue a mv:Arena ;
+         mv:name ?venueName ;
+         mv:isLocatedIn ?city .
+  ?city rdfs:label ?cityLabel ;
+        mv:locatedInCountry ?country .
+  ?country rdfs:label ?countryLabel ;
+           mv:locatedInContinent mv:Europe .
+}

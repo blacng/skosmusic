@@ -1,0 +1,12 @@
+# Venues with age-restricted admission
+PREFIX mv:   <http://getexcited.com/music-venues#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?venueName ?policyLabel ?cityLabel
+WHERE {
+  ?venue mv:hasAdmissionPolicy ?policy ;
+         mv:name ?venueName ;
+         mv:isLocatedIn ?city .
+  ?policy rdfs:label ?policyLabel .
+  ?city rdfs:label ?cityLabel .
+}

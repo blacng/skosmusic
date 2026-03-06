@@ -1,0 +1,13 @@
+# Count of venues per country
+PREFIX mv:   <http://getexcited.com/music-venues#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?countryLabel (COUNT(DISTINCT ?venue) AS ?venueCount)
+WHERE {
+  ?venue mv:name ?venueName ;
+         mv:isLocatedIn ?city .
+  ?city mv:locatedInCountry ?country .
+  ?country rdfs:label ?countryLabel .
+}
+GROUP BY ?countryLabel
+ORDER BY DESC(?venueCount)

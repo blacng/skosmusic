@@ -1,0 +1,13 @@
+# All tour events in chronological order
+PREFIX mv:    <http://getexcited.com/music-venues#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?label ?venueName ?date
+WHERE {
+  ?event a mv:MusicEvent ;
+         rdfs:label ?label ;
+         mv:performedAt ?venue ;
+         mv:eventDate ?date .
+  ?venue mv:name ?venueName .
+}
+ORDER BY ?date

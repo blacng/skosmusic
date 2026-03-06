@@ -1,0 +1,19 @@
+# Full location chain: Venue → City → State → Country → Continent
+PREFIX mv:   <http://getexcited.com/music-venues#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?venueName ?cityLabel ?stateLabel ?countryLabel ?continentLabel
+WHERE {
+  ?venue mv:name ?venueName ;
+         mv:isLocatedIn ?city .
+  ?city rdfs:label ?cityLabel ;
+        mv:locatedInCountry ?country .
+  ?country rdfs:label ?countryLabel ;
+           mv:locatedInContinent ?continent .
+  ?continent rdfs:label ?continentLabel .
+  OPTIONAL {
+    ?city mv:locatedInState ?state .
+    ?state rdfs:label ?stateLabel .
+  }
+}
+ORDER BY ?continentLabel ?countryLabel ?stateLabel ?cityLabel

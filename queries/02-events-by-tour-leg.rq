@@ -1,0 +1,16 @@
+# Events grouped by tour leg (Europe vs US by date)
+PREFIX mv:    <http://getexcited.com/music-venues#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?label ?venueName ?date
+       (IF(?date < "2026-03-01T00:00:00"^^xsd:dateTime,
+           "European Leg", "US Leg") AS ?tourLeg)
+WHERE {
+  ?event a mv:MusicEvent ;
+         rdfs:label ?label ;
+         mv:performedAt ?venue ;
+         mv:eventDate ?date .
+  ?venue mv:name ?venueName .
+}
+ORDER BY ?date
